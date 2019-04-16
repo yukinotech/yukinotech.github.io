@@ -362,19 +362,19 @@
 
 
   
-    <article id="post-Go/Go语言初探-包管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Go/Go方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/16/Go/Go语言初探-包管理/">golang语言初探-包管理</a>
+      <a class="article-title" href="/2019/04/16/Go/Go方法/">Go方法</a>
     </h1>
   
 
         
-        <a href="/2019/04/16/Go/Go语言初探-包管理/" class="archive-article-date">
+        <a href="/2019/04/16/Go/Go方法/" class="archive-article-date">
   	<time datetime="2019-04-16T03:02:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-16</time>
 </a>
         
@@ -382,17 +382,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>golang语言初探-包管理</p>
-<p>Goroot path：<code>C:\Go\bin</code></p>
-<p>Gopath :<code>C:\Users\zyf\go</code></p>
-<p><code>go get</code>命令的包全部都保存在<code>Gopath</code>中</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"hello2"</span></span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//注意这里变量名是hello</span></span><br><span class="line">    hello.Say()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>实际上导入的是目录<br><code>C:\Users\zyf\go\src</code>下的<code>hello2</code>文件夹</p>
-<p>导入的包的默认变量名是什么呢？</p>
-<p><code>C:\Users\zyf\go\src\hello2</code>里只用一个文件<code>main.go</code><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> hello</span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Say</span><span class="params">()</span></span>&#123;</span><br><span class="line">    fmt.Println(<span class="string">"Hello, World!"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里的package为hello，表示这个文件为hello包的内容。<br>Say方法大写，暴露在外面。所以推荐把package名和文件夹名命名一致，这样方便引用。即导入的文件夹名就是package的名字</p>
-<p>golang包管理如果是<code>go get</code>的话也是先下载在gopath下，然后在本地读取比如</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"hello2"</span></span><br><span class="line">    FirstGoPackage <span class="string">"github.com/yukinotech/FirstGoPackage"</span></span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    hello.Say()</span><br><span class="line">    FirstGoPackage.Say(<span class="string">"good bye"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h4 id="Go方法"><a href="#Go方法" class="headerlink" title="Go方法"></a>Go方法</h4><h5 id="Go语言中struct的方法"><a href="#Go语言中struct的方法" class="headerlink" title="Go语言中struct的方法"></a>Go语言中struct的方法</h5><p>方法就是函数，对象调用的函数就是方法，同样包括值传递和指针传递</p>
+<h5 id="Go方法接收值"><a href="#Go方法接收值" class="headerlink" title="Go方法接收值"></a>Go方法接收值</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> user <span class="keyword">struct</span> &#123;</span><br><span class="line">	name  <span class="keyword">string</span></span><br><span class="line">	email <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//传递值，changeEmail方法没有用</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u user)</span> <span class="title">print</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(u.email)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u user)</span> <span class="title">changeEmail</span><span class="params">(email <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	u.email = email</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	bill := user&#123;<span class="string">"Bill"</span>, <span class="string">"bill@email.com"</span>&#125;</span><br><span class="line">	bill.<span class="built_in">print</span>()</span><br><span class="line">	<span class="comment">//bill@email.com</span></span><br><span class="line">	bill.changeEmail(<span class="string">"new address"</span>)</span><br><span class="line">	bill.<span class="built_in">print</span>()</span><br><span class="line">	<span class="comment">//bill@email.com</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两个函数都是传递user的值的副本，因此修改没用。</p>
+<h5 id="Go方法接收指针"><a href="#Go方法接收指针" class="headerlink" title="Go方法接收指针"></a>Go方法接收指针</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> user <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">    email <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数接收user类型的指针</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *user)</span> <span class="title">printPointer</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(u.email)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *user)</span> <span class="title">changeEmailPointer</span><span class="params">(email <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	u.email = email</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	bill := user&#123;<span class="string">"Bill"</span>, <span class="string">"bill@email.com"</span>&#125;</span><br><span class="line">	bill.printPointer() </span><br><span class="line">	<span class="comment">//bill@email.com</span></span><br><span class="line">	bill.changeEmailPointer(<span class="string">"new address"</span>) </span><br><span class="line">	bill.printPointer()</span><br><span class="line">	<span class="comment">//new address</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意这里传递的就是变量<code>bill</code>的指针了。<br>细心的同学可能发现<code>bill.printPointer()</code>这个调用有问题。因为<code>printPointer</code>接收的是指针。<br>其实这样写更准确：<code>(&amp;bill).printPointer()</code>这里是go编译器帮我们内部处理的，这样能更加方便我们书写方法。</p>
+<h5 id="amp-user的写法"><a href="#amp-user的写法" class="headerlink" title="&amp;user的写法"></a>&amp;user的写法</h5><p>大家可能猜到，同理还有另外一种写法,上述的2份代码只改动一处：<br><code>bill := &amp;user{&quot;Bill&quot;, &quot;bill@email.com&quot;}</code></p>
+<p>上述的2份代码运行的结果都不会发生变化，传入指针或者传入值，都是由函数方法决定的。</p>
 
       
 
@@ -405,89 +401,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/16/Go/Go语言初探-包管理/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Go/Go数组" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/16/Go/Go数组/">Go数组</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/16/Go/Go数组/" class="archive-article-date">
-  	<time datetime="2019-04-16T03:02:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>数组是一种非常有用的数据结构，因为其占用的内存是连续分配的。由于内存连续，CPU能把正在使用的数据缓存更久的时间。而且内存连续很容易计算索引，可以快速迭代数组里的所有元素。数组的类型信息可以提供每次访问一个元素时需要在内存中移动的距离。既然数组的每个元素类型相同，又是连续分配，就可以以固定速度索引数组中的任意数据，速度非常快。</p>
-<p>注意：在 Go 中数组是值类型而不是引用类型。这意味着当数组变量被赋值时，将会获得原数组的拷贝。新数组中元素的改变不会影响原数组中元素的值。</p>
-<h5 id="声明和赋值方式"><a href="#声明和赋值方式" class="headerlink" title="声明和赋值方式"></a>声明和赋值方式</h5><h6 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array[<span class="number">5</span>] <span class="keyword">int</span></span><br></pre></td></tr></table></figure>
-<h6 id="使用具体值初始化"><a href="#使用具体值初始化" class="headerlink" title="使用具体值初始化"></a>使用具体值初始化</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>] <span class="keyword">int</span> &#123;&#125; <span class="comment">//[0,0,0,0,0]</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>] <span class="keyword">int</span> &#123;<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>,<span class="number">40</span>,<span class="number">50</span>&#125; <span class="comment">//[10,20,30,40,50]</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明一个整型数组</span></span><br><span class="line"><span class="comment">// 用具体值初始化每个元素</span></span><br><span class="line"><span class="comment">// 容量由初始化值的数量决定</span></span><br><span class="line">array := [...]<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明一个有5个元素的数组</span></span><br><span class="line"><span class="comment">// 用具体值初始化索引为1和2的元素</span></span><br><span class="line"><span class="comment">// 其余元素保持零值</span></span><br><span class="line">array := [<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>: <span class="number">10</span>, <span class="number">2</span>: <span class="number">20</span>&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="循环一个数组"><a href="#循环一个数组" class="headerlink" title="循环一个数组"></a>循环一个数组</h5><p>注意数组是基本类型，这意味着循环数组并不像js中数组也是一个对象，直接调用array.length进行循环。</p>
-<h6 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">0</span>:<span class="number">1</span>, <span class="number">1</span>:<span class="number">1</span>&#125;</span><br><span class="line">array[<span class="number">0</span>]=<span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++&#123;</span><br><span class="line">    fmt.Printf(<span class="string">"%d"</span>,array[i])</span><br><span class="line">&#125;</span><br><span class="line">fmt.Printf(<span class="string">"\n"</span>)</span><br></pre></td></tr></table></figure>
-<h6 id="range循环"><a href="#range循环" class="headerlink" title="range循环"></a>range循环</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">0</span>:<span class="number">1</span>, <span class="number">1</span>:<span class="number">1</span>&#125;</span><br><span class="line"><span class="comment">//array为[1,1,0,0,0]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> index,value:= <span class="keyword">range</span> array&#123;</span><br><span class="line">    fmt.Printf(<span class="string">"index:%d,value:%d\n"</span>,index,value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="指针数组"><a href="#指针数组" class="headerlink" title="指针数组"></a>指针数组</h5><p>指针数组和普通数组基本一样,注意，赋值前一定要先给指针赋值一个地址。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>]*<span class="keyword">int</span>&#123;<span class="number">0</span>: <span class="built_in">new</span>(<span class="keyword">int</span>), <span class="number">1</span>: <span class="built_in">new</span>(<span class="keyword">int</span>)&#125;</span><br><span class="line">*array[<span class="number">0</span>]=<span class="number">1</span> <span class="comment">// 赋值成功</span></span><br><span class="line">*array[<span class="number">2</span>]=<span class="number">1</span> <span class="comment">// 报错，因为*array[2]指向一个nil指针</span></span><br><span class="line">fmt.Printf(<span class="string">"%d"</span>,*array[<span class="number">0</span>]) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>]*<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">array[<span class="number">0</span>]=<span class="built_in">new</span>(<span class="keyword">int</span>) <span class="comment">// 先给指针一个地址</span></span><br><span class="line">*array[<span class="number">0</span>]=<span class="number">1</span>       <span class="comment">// 然后才能赋值</span></span><br><span class="line">fmt.Printf(<span class="string">"%d"</span>,*array[<span class="number">0</span>]) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-<h5 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h5><p>多维数组的写法：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>][<span class="number">3</span>]<span class="keyword">int</span>&#123;<span class="number">0</span>:&#123;<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>&#125;, <span class="number">1</span>:&#123;<span class="number">44</span>,<span class="number">55</span>,<span class="number">66</span>&#125;&#125;</span><br><span class="line"><span class="comment">/*array为[</span></span><br><span class="line"><span class="comment">    [11,22,33],</span></span><br><span class="line"><span class="comment">    [44,55,66],</span></span><br><span class="line"><span class="comment">    [0,0,0],</span></span><br><span class="line"><span class="comment">    [0,0,0],</span></span><br><span class="line"><span class="comment">    [0,0,0],</span></span><br><span class="line"><span class="comment">]*/</span></span><br><span class="line"><span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++&#123;</span><br><span class="line">    <span class="keyword">for</span> j:=<span class="number">0</span>;j&lt;<span class="number">3</span>;j++&#123;</span><br><span class="line">        fmt.Printf(<span class="string">"[%d][%d]=%d\n"</span>,i,j,array[i][j])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">fmt.Printf(<span class="string">"\n"</span>)</span><br><span class="line"><span class="comment">//或者使用range循环</span></span><br><span class="line"><span class="keyword">for</span> i,v1:=<span class="keyword">range</span> array&#123;</span><br><span class="line">    <span class="keyword">for</span> j,v2:= <span class="keyword">range</span> v1&#123;</span><br><span class="line">        fmt.Printf(<span class="string">"[%d][%d]=%d\n"</span>,i,j,v2)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="关于函数中传递一个数组的思考"><a href="#关于函数中传递一个数组的思考" class="headerlink" title="关于函数中传递一个数组的思考"></a>关于函数中传递一个数组的思考</h5><p>函数中如果一参数是数组的话会有什么问题？</p>
-<p>在go语言中，数组是基本类型，不是引用类型，所以传递的都是值。</p>
-<p>想象一下一个动态数组比如切片作为一个形参传进一个函数，那么这个函数中切片形参占用只是一个指针，大概几个字节。</p>
-<p>那如果传进一个很大的数组呢？</p>
-<p>那么这个数组有多大，函数的形参就必须有多大，在一些极端的情况下就会有性能问题。</p>
-<p>解决办法就是传入数组的指针。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/16/Go/Go数组/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/04/16/Go/Go方法/">展开全文 >></a>
         </p>
       
 
@@ -585,19 +499,19 @@
 
 
   
-    <article id="post-Go/Go方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Go/Go接口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/16/Go/Go方法/">Go方法</a>
+      <a class="article-title" href="/2019/04/16/Go/Go接口/">Go接口</a>
     </h1>
   
 
         
-        <a href="/2019/04/16/Go/Go方法/" class="archive-article-date">
+        <a href="/2019/04/16/Go/Go接口/" class="archive-article-date">
   	<time datetime="2019-04-16T03:02:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-16</time>
 </a>
         
@@ -605,13 +519,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="Go方法"><a href="#Go方法" class="headerlink" title="Go方法"></a>Go方法</h4><h5 id="Go语言中struct的方法"><a href="#Go语言中struct的方法" class="headerlink" title="Go语言中struct的方法"></a>Go语言中struct的方法</h5><p>方法就是函数，对象调用的函数就是方法，同样包括值传递和指针传递</p>
-<h5 id="Go方法接收值"><a href="#Go方法接收值" class="headerlink" title="Go方法接收值"></a>Go方法接收值</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> user <span class="keyword">struct</span> &#123;</span><br><span class="line">	name  <span class="keyword">string</span></span><br><span class="line">	email <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//传递值，changeEmail方法没有用</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u user)</span> <span class="title">print</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(u.email)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u user)</span> <span class="title">changeEmail</span><span class="params">(email <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	u.email = email</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	bill := user&#123;<span class="string">"Bill"</span>, <span class="string">"bill@email.com"</span>&#125;</span><br><span class="line">	bill.<span class="built_in">print</span>()</span><br><span class="line">	<span class="comment">//bill@email.com</span></span><br><span class="line">	bill.changeEmail(<span class="string">"new address"</span>)</span><br><span class="line">	bill.<span class="built_in">print</span>()</span><br><span class="line">	<span class="comment">//bill@email.com</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>两个函数都是传递user的值的副本，因此修改没用。</p>
-<h5 id="Go方法接收指针"><a href="#Go方法接收指针" class="headerlink" title="Go方法接收指针"></a>Go方法接收指针</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> user <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">    email <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数接收user类型的指针</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *user)</span> <span class="title">printPointer</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(u.email)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *user)</span> <span class="title">changeEmailPointer</span><span class="params">(email <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	u.email = email</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	bill := user&#123;<span class="string">"Bill"</span>, <span class="string">"bill@email.com"</span>&#125;</span><br><span class="line">	bill.printPointer() </span><br><span class="line">	<span class="comment">//bill@email.com</span></span><br><span class="line">	bill.changeEmailPointer(<span class="string">"new address"</span>) </span><br><span class="line">	bill.printPointer()</span><br><span class="line">	<span class="comment">//new address</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意这里传递的就是变量<code>bill</code>的指针了。<br>细心的同学可能发现<code>bill.printPointer()</code>这个调用有问题。因为<code>printPointer</code>接收的是指针。<br>其实这样写更准确：<code>(&amp;bill).printPointer()</code>这里是go编译器帮我们内部处理的，这样能更加方便我们书写方法。</p>
-<h5 id="amp-user的写法"><a href="#amp-user的写法" class="headerlink" title="&amp;user的写法"></a>&amp;user的写法</h5><p>大家可能猜到，同理还有另外一种写法,上述的2份代码只改动一处：<br><code>bill := &amp;user{&quot;Bill&quot;, &quot;bill@email.com&quot;}</code></p>
-<p>上述的2份代码运行的结果都不会发生变化，传入指针或者传入值，都是由函数方法决定的。</p>
+        <h4 id="Go接口"><a href="#Go接口" class="headerlink" title="Go接口"></a>Go接口</h4><h5 id="接口的含义"><a href="#接口的含义" class="headerlink" title="接口的含义"></a>接口的含义</h5><p>从面向对象的语言的角度来说，就是约束类(对象)的属性和方法。</p>
+<p>比如java或者typescript</p>
+<h5 id="go中的接口的使用和方法集"><a href="#go中的接口的使用和方法集" class="headerlink" title="go中的接口的使用和方法集"></a>go中的接口的使用和方法集</h5><p>看看接口的使用方法</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> printInfor <span class="keyword">interface</span> &#123;</span><br><span class="line">	printInfo()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> user <span class="keyword">struct</span> &#123;</span><br><span class="line">    name <span class="keyword">string</span></span><br><span class="line">    email <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *user)</span> <span class="title">printInfo</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">"name:"</span>, u.name, <span class="string">" email:"</span>,u.email)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    u := user&#123;<span class="string">"Bill"</span>, <span class="string">"bill@email.com"</span>&#125;</span><br><span class="line">    sendInfo(&amp;u)<span class="comment">//这里只能传递指针！！</span></span><br><span class="line">    <span class="comment">//写成sendInfo(u)行不行？</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sendInfo</span><span class="params">(p printInfor)</span></span> &#123;</span><br><span class="line">    p.printInfo()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Q:这里写成sendInfo(u)行不行?<br>A:不行</p>
+<p>Q:为什么?<br>A:和go的方法集有关</p>
+<h5 id="go的方法集"><a href="#go的方法集" class="headerlink" title="go的方法集"></a>go的方法集</h5><p>示意图：<br><img src="/2019/04/16/Go/Go接口/go方法集.jpg" alt><br>指针接收者来实现一个接口，那么<strong>只有指向那个类型的指针才能够实现对应的接口</strong></p>
+<p>如果使用值接收者来实现一个接口，那么那个类型的值和指针都能够实现对应的接口</p>
+<p>回到这段代码上，因为接口包含一个<code>printInfo</code>方法。而<code>printInfo</code>方法接受指针，那么<strong>只有指向那个类型的指针才能够实现对应的接口</strong>，即代码中的<code>&amp;u</code></p>
+<h5 id="更加深层次的考虑为什么方法集是这样子的设计的？"><a href="#更加深层次的考虑为什么方法集是这样子的设计的？" class="headerlink" title="更加深层次的考虑为什么方法集是这样子的设计的？"></a>更加深层次的考虑为什么方法集是这样子的设计的？</h5><p>因为<strong>编译器并不是总能自动获得一个值的地址</strong></p>
+<p>回到刚才那段程序如果写成<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sendInfo(u)</span><br></pre></td></tr></table></figure></p>
+<p>而在<code>sendInfo</code>中使用<code>p.printInfo()</code>时其实是在调用<code>(*p).printInfo()</code>。根据<strong>编译器并不是总能自动获得一个值的地址</strong>，<code>p</code>可能取不到地址，因此会出现错误。</p>
 
       
 
@@ -624,7 +543,89 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/16/Go/Go方法/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/04/16/Go/Go接口/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Go/Go数组" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/16/Go/Go数组/">Go数组</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/16/Go/Go数组/" class="archive-article-date">
+  	<time datetime="2019-04-16T03:02:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>数组是一种非常有用的数据结构，因为其占用的内存是连续分配的。由于内存连续，CPU能把正在使用的数据缓存更久的时间。而且内存连续很容易计算索引，可以快速迭代数组里的所有元素。数组的类型信息可以提供每次访问一个元素时需要在内存中移动的距离。既然数组的每个元素类型相同，又是连续分配，就可以以固定速度索引数组中的任意数据，速度非常快。</p>
+<p>注意：在 Go 中数组是值类型而不是引用类型。这意味着当数组变量被赋值时，将会获得原数组的拷贝。新数组中元素的改变不会影响原数组中元素的值。</p>
+<h5 id="声明和赋值方式"><a href="#声明和赋值方式" class="headerlink" title="声明和赋值方式"></a>声明和赋值方式</h5><h6 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array[<span class="number">5</span>] <span class="keyword">int</span></span><br></pre></td></tr></table></figure>
+<h6 id="使用具体值初始化"><a href="#使用具体值初始化" class="headerlink" title="使用具体值初始化"></a>使用具体值初始化</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>] <span class="keyword">int</span> &#123;&#125; <span class="comment">//[0,0,0,0,0]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>] <span class="keyword">int</span> &#123;<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>,<span class="number">40</span>,<span class="number">50</span>&#125; <span class="comment">//[10,20,30,40,50]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明一个整型数组</span></span><br><span class="line"><span class="comment">// 用具体值初始化每个元素</span></span><br><span class="line"><span class="comment">// 容量由初始化值的数量决定</span></span><br><span class="line">array := [...]<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明一个有5个元素的数组</span></span><br><span class="line"><span class="comment">// 用具体值初始化索引为1和2的元素</span></span><br><span class="line"><span class="comment">// 其余元素保持零值</span></span><br><span class="line">array := [<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>: <span class="number">10</span>, <span class="number">2</span>: <span class="number">20</span>&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="循环一个数组"><a href="#循环一个数组" class="headerlink" title="循环一个数组"></a>循环一个数组</h5><p>注意数组是基本类型，这意味着循环数组并不像js中数组也是一个对象，直接调用array.length进行循环。</p>
+<h6 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">0</span>:<span class="number">1</span>, <span class="number">1</span>:<span class="number">1</span>&#125;</span><br><span class="line">array[<span class="number">0</span>]=<span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++&#123;</span><br><span class="line">    fmt.Printf(<span class="string">"%d"</span>,array[i])</span><br><span class="line">&#125;</span><br><span class="line">fmt.Printf(<span class="string">"\n"</span>)</span><br></pre></td></tr></table></figure>
+<h6 id="range循环"><a href="#range循环" class="headerlink" title="range循环"></a>range循环</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">0</span>:<span class="number">1</span>, <span class="number">1</span>:<span class="number">1</span>&#125;</span><br><span class="line"><span class="comment">//array为[1,1,0,0,0]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> index,value:= <span class="keyword">range</span> array&#123;</span><br><span class="line">    fmt.Printf(<span class="string">"index:%d,value:%d\n"</span>,index,value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="指针数组"><a href="#指针数组" class="headerlink" title="指针数组"></a>指针数组</h5><p>指针数组和普通数组基本一样,注意，赋值前一定要先给指针赋值一个地址。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>]*<span class="keyword">int</span>&#123;<span class="number">0</span>: <span class="built_in">new</span>(<span class="keyword">int</span>), <span class="number">1</span>: <span class="built_in">new</span>(<span class="keyword">int</span>)&#125;</span><br><span class="line">*array[<span class="number">0</span>]=<span class="number">1</span> <span class="comment">// 赋值成功</span></span><br><span class="line">*array[<span class="number">2</span>]=<span class="number">1</span> <span class="comment">// 报错，因为*array[2]指向一个nil指针</span></span><br><span class="line">fmt.Printf(<span class="string">"%d"</span>,*array[<span class="number">0</span>]) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>]*<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">array[<span class="number">0</span>]=<span class="built_in">new</span>(<span class="keyword">int</span>) <span class="comment">// 先给指针一个地址</span></span><br><span class="line">*array[<span class="number">0</span>]=<span class="number">1</span>       <span class="comment">// 然后才能赋值</span></span><br><span class="line">fmt.Printf(<span class="string">"%d"</span>,*array[<span class="number">0</span>]) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<h5 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h5><p>多维数组的写法：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>][<span class="number">3</span>]<span class="keyword">int</span>&#123;<span class="number">0</span>:&#123;<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>&#125;, <span class="number">1</span>:&#123;<span class="number">44</span>,<span class="number">55</span>,<span class="number">66</span>&#125;&#125;</span><br><span class="line"><span class="comment">/*array为[</span></span><br><span class="line"><span class="comment">    [11,22,33],</span></span><br><span class="line"><span class="comment">    [44,55,66],</span></span><br><span class="line"><span class="comment">    [0,0,0],</span></span><br><span class="line"><span class="comment">    [0,0,0],</span></span><br><span class="line"><span class="comment">    [0,0,0],</span></span><br><span class="line"><span class="comment">]*/</span></span><br><span class="line"><span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++&#123;</span><br><span class="line">    <span class="keyword">for</span> j:=<span class="number">0</span>;j&lt;<span class="number">3</span>;j++&#123;</span><br><span class="line">        fmt.Printf(<span class="string">"[%d][%d]=%d\n"</span>,i,j,array[i][j])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">fmt.Printf(<span class="string">"\n"</span>)</span><br><span class="line"><span class="comment">//或者使用range循环</span></span><br><span class="line"><span class="keyword">for</span> i,v1:=<span class="keyword">range</span> array&#123;</span><br><span class="line">    <span class="keyword">for</span> j,v2:= <span class="keyword">range</span> v1&#123;</span><br><span class="line">        fmt.Printf(<span class="string">"[%d][%d]=%d\n"</span>,i,j,v2)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="关于函数中传递一个数组的思考"><a href="#关于函数中传递一个数组的思考" class="headerlink" title="关于函数中传递一个数组的思考"></a>关于函数中传递一个数组的思考</h5><p>函数中如果一参数是数组的话会有什么问题？</p>
+<p>在go语言中，数组是基本类型，不是引用类型，所以传递的都是值。</p>
+<p>想象一下一个动态数组比如切片作为一个形参传进一个函数，那么这个函数中切片形参占用只是一个指针，大概几个字节。</p>
+<p>那如果传进一个很大的数组呢？</p>
+<p>那么这个数组有多大，函数的形参就必须有多大，在一些极端的情况下就会有性能问题。</p>
+<p>解决办法就是传入数组的指针。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/16/Go/Go数组/">展开全文 >></a>
         </p>
       
 
@@ -818,19 +819,19 @@
 
 
   
-    <article id="post-Go/Go接口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Go/Go语言初探-包管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/16/Go/Go接口/">Go接口</a>
+      <a class="article-title" href="/2019/04/16/Go/Go语言初探-包管理/">golang语言初探-包管理</a>
     </h1>
   
 
         
-        <a href="/2019/04/16/Go/Go接口/" class="archive-article-date">
+        <a href="/2019/04/16/Go/Go语言初探-包管理/" class="archive-article-date">
   	<time datetime="2019-04-16T03:02:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-16</time>
 </a>
         
@@ -838,18 +839,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="Go接口"><a href="#Go接口" class="headerlink" title="Go接口"></a>Go接口</h4><h5 id="接口的含义"><a href="#接口的含义" class="headerlink" title="接口的含义"></a>接口的含义</h5><p>从面向对象的语言的角度来说，就是约束类(对象)的属性和方法。</p>
-<p>比如java或者typescript</p>
-<h5 id="go中的接口的使用和方法集"><a href="#go中的接口的使用和方法集" class="headerlink" title="go中的接口的使用和方法集"></a>go中的接口的使用和方法集</h5><p>看看接口的使用方法</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> printInfor <span class="keyword">interface</span> &#123;</span><br><span class="line">	printInfo()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> user <span class="keyword">struct</span> &#123;</span><br><span class="line">    name <span class="keyword">string</span></span><br><span class="line">    email <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *user)</span> <span class="title">printInfo</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">"name:"</span>, u.name, <span class="string">" email:"</span>,u.email)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    u := user&#123;<span class="string">"Bill"</span>, <span class="string">"bill@email.com"</span>&#125;</span><br><span class="line">    sendInfo(&amp;u)<span class="comment">//这里只能传递指针！！</span></span><br><span class="line">    <span class="comment">//写成sendInfo(u)行不行？</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sendInfo</span><span class="params">(p printInfor)</span></span> &#123;</span><br><span class="line">    p.printInfo()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Q:这里写成sendInfo(u)行不行?<br>A:不行</p>
-<p>Q:为什么?<br>A:和go的方法集有关</p>
-<h5 id="go的方法集"><a href="#go的方法集" class="headerlink" title="go的方法集"></a>go的方法集</h5><p>示意图：<br><img src="/2019/04/16/Go/Go接口/go方法集.jpg" alt><br>指针接收者来实现一个接口，那么<strong>只有指向那个类型的指针才能够实现对应的接口</strong></p>
-<p>如果使用值接收者来实现一个接口，那么那个类型的值和指针都能够实现对应的接口</p>
-<p>回到这段代码上，因为接口包含一个<code>printInfo</code>方法。而<code>printInfo</code>方法接受指针，那么<strong>只有指向那个类型的指针才能够实现对应的接口</strong>，即代码中的<code>&amp;u</code></p>
-<h5 id="更加深层次的考虑为什么方法集是这样子的设计的？"><a href="#更加深层次的考虑为什么方法集是这样子的设计的？" class="headerlink" title="更加深层次的考虑为什么方法集是这样子的设计的？"></a>更加深层次的考虑为什么方法集是这样子的设计的？</h5><p>因为<strong>编译器并不是总能自动获得一个值的地址</strong></p>
-<p>回到刚才那段程序如果写成<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sendInfo(u)</span><br></pre></td></tr></table></figure></p>
-<p>而在<code>sendInfo</code>中使用<code>p.printInfo()</code>时其实是在调用<code>(*p).printInfo()</code>。根据<strong>编译器并不是总能自动获得一个值的地址</strong>，<code>p</code>可能取不到地址，因此会出现错误。</p>
+        <p>golang语言初探-包管理</p>
+<p>Goroot path：<code>C:\Go\bin</code></p>
+<p>Gopath :<code>C:\Users\zyf\go</code></p>
+<p><code>go get</code>命令的包全部都保存在<code>Gopath</code>中</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"hello2"</span></span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//注意这里变量名是hello</span></span><br><span class="line">    hello.Say()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实际上导入的是目录<br><code>C:\Users\zyf\go\src</code>下的<code>hello2</code>文件夹</p>
+<p>导入的包的默认变量名是什么呢？</p>
+<p><code>C:\Users\zyf\go\src\hello2</code>里只用一个文件<code>main.go</code><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> hello</span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Say</span><span class="params">()</span></span>&#123;</span><br><span class="line">    fmt.Println(<span class="string">"Hello, World!"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里的package为hello，表示这个文件为hello包的内容。<br>Say方法大写，暴露在外面。所以推荐把package名和文件夹名命名一致，这样方便引用。即导入的文件夹名就是package的名字</p>
+<p>golang包管理如果是<code>go get</code>的话也是先下载在gopath下，然后在本地读取比如</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"hello2"</span></span><br><span class="line">    FirstGoPackage <span class="string">"github.com/yukinotech/FirstGoPackage"</span></span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    hello.Say()</span><br><span class="line">    FirstGoPackage.Say(<span class="string">"good bye"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
 
@@ -862,7 +862,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/16/Go/Go接口/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/04/16/Go/Go语言初探-包管理/">展开全文 >></a>
         </p>
       
 
