@@ -5,19 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
+    <meta name="theme-color" content="#33363b">
+    <meta name="msapplication-TileColor" content="#33363b">
     
     
     
     
+    <meta name="keywords" content="Life, ARIA, Hexo">
     
     
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
     
     
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png">
     
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    
+    
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#33363b">
+    
+    
+    <link rel="manifest" href="/favicons/site.webmanifest">
+    
+    
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
     
     
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
     
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicons/favicon.ico">
     
     
     <link rel="stylesheet" type="text/css" href="/css/normalize.css">
@@ -30,7 +51,7 @@
 <link rel="stylesheet" type="text/css" href="/css/post.css">
 
     <link rel="stylesheet" type="text/css" href="/css/custom.css">
-    <link rel="stylesheet" type="text/css" href="/css/[object Object].css">
+    <link rel="stylesheet" type="text/css" href="/css/atom-one-dark.css">
     <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css">
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script defer type="text/javascript" src="/js/util.js"></script>
@@ -43,6 +64,8 @@
     <script defer type="text/javascript" src="/js/lg-pager.min.js"></script>
     <script defer type="text/javascript" src="/js/lg-thumbnail.min.js"></script>
     <script defer type="text/javascript" src="/js/lg-zoom.min.js"></script>
+    
+    <script defer src="/js/busuanzi.pure.mini.js"></script>
     
     
     <script defer type="text/javascript" src="/js/search.js"></script>
@@ -112,9 +135,9 @@
     <script defer type="text/javascript" src="/js/custom.js"></script>
     <title>Hexo</title>
   </head>
-  <body itemscope itemtype="http://schema.org/WebPage" lang="default" data-spy="scroll" data-target=".list-group">
+  <body itemscope itemtype="http://schema.org/WebPage" lang="zh_CN" data-spy="scroll" data-target=".list-group">
     
-<header id="header" class="header">
+<header id="header" class="header" style="background: #33363b;">
   <div class="container">
     <div class="header-container">
       <div class="header-title">
@@ -122,10 +145,18 @@
         <h2 class="subtitle"></h2>
       </div>
       
+      <div class="logo">
+        <img src="/images/logo.png" alt="logo">
+      </div>
+      
     </div>
     <nav id="nav" class="nav">
       <a id="nav-toggle" class="nav-toggle" aria-hidden="true"><i class="fas fa-bars" aria-label="切换导航栏"></i></a>
       <ul id="menu" role="menubar" aria-hidden="false">
+        
+        <li role="menuitem"><a href="/"><i class="fas fa-home"></i><span class="menu-text">首页</span></a></li>
+        
+        <li role="menuitem"><a href="/archives/"><i class="fas fa-archive"></i><span class="menu-text">归档</span></a></li>
         
       </ul>
     </nav>
@@ -143,11 +174,11 @@
   
   <article class="article post card" itemscope itemtype="http://schema.org/Article">
     <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/16/Go/Go接口/">
+      <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/16/Go/Go方法/">
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="John Doe">
         <meta itemprop="description" content>
-        <meta itemprop="image" content="/">
+        <meta itemprop="image" content="/images/avatar.png">
       </span>
       <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
         <meta itemprop="name" content="Hexo">
@@ -155,7 +186,7 @@
     </div>
     <header class="post-header">
       <h1 class="post-title" itemprop="name headline">
-        <a class="post-title-link post-title-link-external" href="/2019/04/16/Go/Go接口/" itemprop="url">Go接口</a>
+        <a class="post-title-link post-title-link-external" href="/2019/04/16/Go/Go方法/" itemprop="url">Go方法</a>
       </h1>
       <div class="post-meta">
         
@@ -169,18 +200,13 @@
     </header>
     <main class="post-main" itemprop="articleBody">
       
-      <h4 id="Go接口"><a href="#Go接口" class="headerlink" title="Go接口"></a>Go接口</h4><h5 id="接口的含义"><a href="#接口的含义" class="headerlink" title="接口的含义"></a>接口的含义</h5><p>从面向对象的语言的角度来说，就是约束类(对象)的属性和方法。</p>
-<p>比如java或者typescript</p>
-<h5 id="go中的接口的使用和方法集"><a href="#go中的接口的使用和方法集" class="headerlink" title="go中的接口的使用和方法集"></a>go中的接口的使用和方法集</h5><p>看看接口的使用方法</p>
-<figure class="hljs highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> printInfor <span class="keyword">interface</span> &#123;</span><br><span class="line">	printInfo()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> user <span class="keyword">struct</span> &#123;</span><br><span class="line">    name <span class="keyword">string</span></span><br><span class="line">    email <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *user)</span> <span class="title">printInfo</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">"name:"</span>, u.name, <span class="string">" email:"</span>,u.email)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    u := user&#123;<span class="string">"Bill"</span>, <span class="string">"bill@email.com"</span>&#125;</span><br><span class="line">    sendInfo(&amp;u)<span class="comment">//这里只能传递指针！！</span></span><br><span class="line">    <span class="comment">//写成sendInfo(u)行不行？</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sendInfo</span><span class="params">(p printInfor)</span></span> &#123;</span><br><span class="line">    p.printInfo()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Q:这里写成sendInfo(u)行不行?<br>A:不行</p>
-<p>Q:为什么?<br>A:和go的方法集有关</p>
-<h5 id="go的方法集"><a href="#go的方法集" class="headerlink" title="go的方法集"></a>go的方法集</h5><p>示意图：<br><img src="/2019/04/16/Go/Go接口/go方法集.jpg" alt><br>指针接收者来实现一个接口，那么<strong>只有指向那个类型的指针才能够实现对应的接口</strong></p>
-<p>如果使用值接收者来实现一个接口，那么那个类型的值和指针都能够实现对应的接口</p>
-<p>回到这段代码上，因为接口包含一个<code>printInfo</code>方法。而<code>printInfo</code>方法接受指针，那么<strong>只有指向那个类型的指针才能够实现对应的接口</strong>，即代码中的<code>&amp;u</code></p>
-<h5 id="更加深层次的考虑为什么方法集是这样子的设计的？"><a href="#更加深层次的考虑为什么方法集是这样子的设计的？" class="headerlink" title="更加深层次的考虑为什么方法集是这样子的设计的？"></a>更加深层次的考虑为什么方法集是这样子的设计的？</h5><p>因为<strong>编译器并不是总能自动获得一个值的地址</strong></p>
-<p>回到刚才那段程序如果写成<br><figure class="hljs highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sendInfo(u)</span><br></pre></td></tr></table></figure></p>
-<p>而在<code>sendInfo</code>中使用<code>p.printInfo()</code>时其实是在调用<code>(*p).printInfo()</code>。根据<strong>编译器并不是总能自动获得一个值的地址</strong>，<code>p</code>可能取不到地址，因此会出现错误。</p>
+      <h4 id="Go方法"><a href="#Go方法" class="headerlink" title="Go方法"></a>Go方法</h4><h5 id="Go语言中struct的方法"><a href="#Go语言中struct的方法" class="headerlink" title="Go语言中struct的方法"></a>Go语言中struct的方法</h5><p>方法就是函数，对象调用的函数就是方法，同样包括值传递和指针传递</p>
+<h5 id="Go方法接收值"><a href="#Go方法接收值" class="headerlink" title="Go方法接收值"></a>Go方法接收值</h5><figure class="hljs highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> user <span class="hljs-keyword">struct</span> &#123;<br>	name  <span class="hljs-keyword">string</span><br>	email <span class="hljs-keyword">string</span><br>&#125;<br><span class="hljs-comment">//传递值，changeEmail方法没有用</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(u user)</span> <span class="hljs-title">print</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(u.email)<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(u user)</span> <span class="hljs-title">changeEmail</span><span class="hljs-params">(email <span class="hljs-keyword">string</span>)</span></span> &#123;<br>	u.email = email<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	bill := user&#123;<span class="hljs-string">"Bill"</span>, <span class="hljs-string">"bill@email.com"</span>&#125;<br>	bill.<span class="hljs-built_in">print</span>()<br>	<span class="hljs-comment">//bill@email.com</span><br>	bill.changeEmail(<span class="hljs-string">"new address"</span>)<br>	bill.<span class="hljs-built_in">print</span>()<br>	<span class="hljs-comment">//bill@email.com</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>两个函数都是传递user的值的副本，因此修改没用。</p>
+<h5 id="Go方法接收指针"><a href="#Go方法接收指针" class="headerlink" title="Go方法接收指针"></a>Go方法接收指针</h5><figure class="hljs highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> user <span class="hljs-keyword">struct</span> &#123;<br>	name <span class="hljs-keyword">string</span><br>    email <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-comment">// 函数接收user类型的指针</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(u *user)</span> <span class="hljs-title">printPointer</span><span class="hljs-params">()</span></span> &#123;<br>	fmt.Println(u.email)<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(u *user)</span> <span class="hljs-title">changeEmailPointer</span><span class="hljs-params">(email <span class="hljs-keyword">string</span>)</span></span> &#123;<br>	u.email = email<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	bill := user&#123;<span class="hljs-string">"Bill"</span>, <span class="hljs-string">"bill@email.com"</span>&#125;<br>	bill.printPointer() <br>	<span class="hljs-comment">//bill@email.com</span><br>	bill.changeEmailPointer(<span class="hljs-string">"new address"</span>) <br>	bill.printPointer()<br>	<span class="hljs-comment">//new address</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>注意这里传递的就是变量<code>bill</code>的指针了。<br>细心的同学可能发现<code>bill.printPointer()</code>这个调用有问题。因为<code>printPointer</code>接收的是指针。<br>其实这样写更准确：<code>(&amp;bill).printPointer()</code>这里是go编译器帮我们内部处理的，这样能更加方便我们书写方法。</p>
+<h5 id="amp-user的写法"><a href="#amp-user的写法" class="headerlink" title="&amp;user的写法"></a>&amp;user的写法</h5><p>大家可能猜到，同理还有另外一种写法,上述的2份代码只改动一处：<br><code>bill := &amp;user{&quot;Bill&quot;, &quot;bill@email.com&quot;}</code></p>
+<p>上述的2份代码运行的结果都不会发生变化，传入指针或者传入值，都是由函数方法决定的。</p>
 
       
     </main>
@@ -195,7 +221,7 @@
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="John Doe">
         <meta itemprop="description" content>
-        <meta itemprop="image" content="/">
+        <meta itemprop="image" content="/images/avatar.png">
       </span>
       <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
         <meta itemprop="name" content="Hexo">
@@ -241,7 +267,7 @@ console.log(obj) //{ name: 'new name' }
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
         <meta itemprop="name" content="John Doe">
         <meta itemprop="description" content>
-        <meta itemprop="image" content="/">
+        <meta itemprop="image" content="/images/avatar.png">
       </span>
       <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
         <meta itemprop="name" content="Hexo">
@@ -306,9 +332,20 @@ console.log(obj) //{ name: 'new name' }
   
 <div class="info sidebar-item" id="info">
   
+  <img class="author-avatar" src="/images/avatar.png" alt="John Doe">
+  
   <h1 class="author-name">John Doe</h1>
   <h2 class="author-description"></h2>
   <div class="site-count">
+    
+    
+    
+    
+    <div class="archives-count count-block">
+      <div class="site-count-title">归档</div>
+      <div><a href="/archives/">13</a></div>
+    </div>
+    
     
   </div>
   
@@ -322,6 +359,34 @@ console.log(obj) //{ name: 'new name' }
   <div class="sidebar-sticky">
     
     
+    <hr>
+    <div class="social-link sidebar-item">
+      <div><i class="far fa-address-card"></i>社交链接<p></p></div>
+      <ul>
+        
+        <li><i class="fas fa-envelope"></i><a href="mailto:youremail@youremailhost" target="_blank">E-Mail</a></li>
+        
+        <li><i class="fab fa-github"></i><a href="https://github.com/" target="_blank">GitHub</a></li>
+        
+        <li><i class="fab fa-weibo"></i><a href="https://weibo.com/" target="_blank">Weibo</a></li>
+        
+      </ul>
+    </div>
+    
+    
+    <hr>
+    <div class="blogroll sidebar-item">
+      <div><i class="fas fa-link"></i>友情链接</div>
+      <ul>
+        
+        <li><i class="fas fa-link"></i><a href="https://github.com/" target="_blank">GitHub</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://developer.mozilla.org/" target="_blank">MDN</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://mozilla.github.io/nunjucks/" target="_blank">Nunjucks</a></li>
+        
+      </ul>
+    </div>
     
   </div>
 </aside>
@@ -332,7 +397,7 @@ console.log(obj) //{ name: 'new name' }
       </div>
     </main>
     
-<footer id="footer" class="footer">
+<footer id="footer" class="footer" style="background: #33363b;">
   <div class="container">
     <div class="back-to-top">
       <button id="back-to-top"><i class="fas fa-angle-double-up" aria-label="回到顶部"></i></button>
@@ -343,9 +408,15 @@ console.log(obj) //{ name: 'new name' }
           <span class="author">John Doe</span><span class="year"><i class="far fa-copyright"></i>2019</span>
         </div>
         
+        <div class="busuanzi">
+          <span id="busuanzi_container_site_pv"><i class="fas fa-eye" aria-label="站点点击量" aria-hidden="false"></i><span id="busuanzi_value_site_pv"></span></span><span id="busuanzi_container_site_uv"><i class="fas fa-user" aria-label="站点用户数" aria-hidden="false"></i><span id="busuanzi_value_site_uv"></span></span><span id="busuanzi_container_page_pv"><i class="far fa-file-alt"></i><span id="busuanzi_value_page_pv" aria-label="页面点击量" aria-hidden="false"></span></span>
+        </div>
+        
       </div>
       <div class="footer-right">
         <div class="custom-info">
+          
+          托管于<i class="fab fa-github-alt"></i><a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
           
         </div>
         <div class="powered-by">

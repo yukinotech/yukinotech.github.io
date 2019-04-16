@@ -5,19 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
+    <meta name="theme-color" content="#33363b">
+    <meta name="msapplication-TileColor" content="#33363b">
     
     
     
     
+    <meta name="keywords" content="Life, ARIA, Hexo">
     
     
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
     
     
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png">
     
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    
+    
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#33363b">
+    
+    
+    <link rel="manifest" href="/favicons/site.webmanifest">
+    
+    
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
     
     
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
     
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicons/favicon.ico">
     
     
     <link rel="stylesheet" type="text/css" href="/css/normalize.css">
@@ -30,7 +51,7 @@
 <link rel="stylesheet" type="text/css" href="/css/post.css">
 
     <link rel="stylesheet" type="text/css" href="/css/custom.css">
-    <link rel="stylesheet" type="text/css" href="/css/[object Object].css">
+    <link rel="stylesheet" type="text/css" href="/css/atom-one-dark.css">
     <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css">
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script defer type="text/javascript" src="/js/util.js"></script>
@@ -43,6 +64,8 @@
     <script defer type="text/javascript" src="/js/lg-pager.min.js"></script>
     <script defer type="text/javascript" src="/js/lg-thumbnail.min.js"></script>
     <script defer type="text/javascript" src="/js/lg-zoom.min.js"></script>
+    
+    <script defer src="/js/busuanzi.pure.mini.js"></script>
     
     
     <script defer type="text/javascript" src="/js/search.js"></script>
@@ -112,9 +135,9 @@
     <script defer type="text/javascript" src="/js/custom.js"></script>
     <title>Go接口与多态 | Hexo</title>
   </head>
-  <body itemscope itemtype="http://schema.org/WebPage" lang="default" data-spy="scroll" data-target=".list-group">
+  <body itemscope itemtype="http://schema.org/WebPage" lang="zh_CN" data-spy="scroll" data-target=".list-group">
     
-<header id="header" class="header">
+<header id="header" class="header" style="background: #33363b;">
   <div class="container">
     <div class="header-container">
       <div class="header-title">
@@ -122,10 +145,18 @@
         <h2 class="subtitle"></h2>
       </div>
       
+      <div class="logo">
+        <img src="/images/logo.png" alt="logo">
+      </div>
+      
     </div>
     <nav id="nav" class="nav">
       <a id="nav-toggle" class="nav-toggle" aria-hidden="true"><i class="fas fa-bars" aria-label="切换导航栏"></i></a>
       <ul id="menu" role="menubar" aria-hidden="false">
+        
+        <li role="menuitem"><a href="/"><i class="fas fa-home"></i><span class="menu-text">首页</span></a></li>
+        
+        <li role="menuitem"><a href="/archives/"><i class="fas fa-archive"></i><span class="menu-text">归档</span></a></li>
         
       </ul>
     </nav>
@@ -146,7 +177,7 @@
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
        <meta itemprop="name" content="John Doe">
        <meta itemprop="description" content>
-       <meta itemprop="image" content="/">
+       <meta itemprop="image" content="/images/avatar.png">
       </span>
       <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
        <meta itemprop="name" content="Hexo">
@@ -169,7 +200,7 @@
 <p>但是这里是有歧义的，有的人觉得不应该把重载也算作多态。因为很多人对多态的理解是：程序中定义的引用变量所指向的具体类型和通过该引用变量发出的方法调用在编程时并不确定，而是在程序运行期间才确定，这种情况叫做多态。 这个定义中描述的就是我们的第二种多态—重写式多态。并且，重载式多态并不是面向对象编程特有的，而多态却是面向对象三大特性之一</p>
 <p>我觉得大家也没有必要在定义上去深究这些，我的理解是：同一个行为具有多个不同表现形式或形态的能力就是多态，所以我认为重载也是一种多态，如果你不同意这种观点，我也接受。</p>
 <p>重写式多态，也叫运行时多态。这种多态通过动态绑定（dynamic binding）技术来实现，是指在执行期间判断所引用对象的实际类型，根据其实际的类型调用其相应的方法。也就是说，只有程序运行起来，你才知道调用的是哪个子类的方法。 这种多态通过函数的重写以及向上转型来实现，我们上面代码中的例子就是一个完整的重写式多态。我们接下来讲的所有多态都是重写式多态，因为它才是面向对象编程中真正的多态。</p>
-<h5 id="接口实现多态的例子"><a href="#接口实现多态的例子" class="headerlink" title="接口实现多态的例子"></a>接口实现多态的例子</h5><figure class="hljs highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> person <span class="keyword">interface</span> &#123;</span><br><span class="line">    sayInfo()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> user <span class="keyword">struct</span> &#123;</span><br><span class="line">    name  <span class="keyword">string</span></span><br><span class="line">    email <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> admin <span class="keyword">struct</span> &#123;</span><br><span class="line">    name  <span class="keyword">string</span></span><br><span class="line">    email <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *user)</span> <span class="title">sayInfo</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Printf(<span class="string">"Sending user email to %s&lt;%s&gt;\n"</span>,u.name,u.email)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a *admin)</span> <span class="title">sayInfo</span><span class="params">()</span></span> &#123;</span><br><span class="line">fmt.Printf(<span class="string">"Sending admin email to %s&lt;%s&gt;\n"</span>,a.name,a.email)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    bill := user&#123;<span class="string">"Bill"</span>, <span class="string">"bill@email.com"</span>&#125;</span><br><span class="line">    sendInfo(&amp;bill)</span><br><span class="line"></span><br><span class="line">    lisa := admin&#123;<span class="string">"Lisa"</span>, <span class="string">"lisa@email.com"</span>&#125;</span><br><span class="line">    sendInfo(&amp;lisa)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sendInfo</span><span class="params">(p person)</span></span> &#123;</span><br><span class="line">    p.sayInfo()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="接口实现多态的例子"><a href="#接口实现多态的例子" class="headerlink" title="接口实现多态的例子"></a>接口实现多态的例子</h5><figure class="hljs highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">"fmt"</span><br>)<br><br><span class="hljs-keyword">type</span> person <span class="hljs-keyword">interface</span> &#123;<br>    sayInfo()<br>&#125;<br><br><span class="hljs-keyword">type</span> user <span class="hljs-keyword">struct</span> &#123;<br>    name  <span class="hljs-keyword">string</span><br>    email <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-keyword">type</span> admin <span class="hljs-keyword">struct</span> &#123;<br>    name  <span class="hljs-keyword">string</span><br>    email <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(u *user)</span> <span class="hljs-title">sayInfo</span><span class="hljs-params">()</span></span> &#123;<br>    fmt.Printf(<span class="hljs-string">"Sending user email to %s&lt;%s&gt;\n"</span>,u.name,u.email)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(a *admin)</span> <span class="hljs-title">sayInfo</span><span class="hljs-params">()</span></span> &#123;<br>fmt.Printf(<span class="hljs-string">"Sending admin email to %s&lt;%s&gt;\n"</span>,a.name,a.email)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    bill := user&#123;<span class="hljs-string">"Bill"</span>, <span class="hljs-string">"bill@email.com"</span>&#125;<br>    sendInfo(&amp;bill)<br><br>    lisa := admin&#123;<span class="hljs-string">"Lisa"</span>, <span class="hljs-string">"lisa@email.com"</span>&#125;<br>    sendInfo(&amp;lisa)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sendInfo</span><span class="hljs-params">(p person)</span></span> &#123;<br>    p.sayInfo()<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>可以看到admin和user有着相同的方法<code>sayInfo</code>，可以通过接口封装在同一个函数中。这样只有在实际调用时，调用一个函数才会知道会执行哪一个方法。</p>
 
     </main>
@@ -182,12 +213,12 @@
   <nav class="page-nav">
     <div class="page-nav-next page-nav-item">
       
-      <a href="/2019/04/16/Go/Go语言初探-包管理/" rel="next" title="golang语言初探-包管理"><i class="fas fa-angle-left"></i><span class="nav-title">golang语言初探-包管理</span></a>
+      <a href="/2019/04/16/Go/Go数组/" rel="next" title="Go数组"><i class="fas fa-angle-left"></i><span class="nav-title">Go数组</span></a>
       
     </div>
     <div class="page-nav-prev page-nav-item">
       
-      <a href="/2019/04/16/Go/Go并发/" rel="prev" title="Go并发"><span class="nav-title">Go并发</span><i class="fas fa-angle-right"></i></a>
+      <a href="/2019/04/16/Go/Go切片/" rel="prev" title="go切片"><span class="nav-title">go切片</span><i class="fas fa-angle-right"></i></a>
       
     </div>
   </nav>
@@ -211,9 +242,20 @@
   
 <div class="info sidebar-item" id="info">
   
+  <img class="author-avatar" src="/images/avatar.png" alt="John Doe">
+  
   <h1 class="author-name">John Doe</h1>
   <h2 class="author-description"></h2>
   <div class="site-count">
+    
+    
+    
+    
+    <div class="archives-count count-block">
+      <div class="site-count-title">归档</div>
+      <div><a href="/archives/">13</a></div>
+    </div>
+    
     
   </div>
   
@@ -238,6 +280,34 @@
     
     
     
+    <hr>
+    <div class="social-link sidebar-item">
+      <div><i class="far fa-address-card"></i>社交链接<p></p></div>
+      <ul>
+        
+        <li><i class="fas fa-envelope"></i><a href="mailto:youremail@youremailhost" target="_blank">E-Mail</a></li>
+        
+        <li><i class="fab fa-github"></i><a href="https://github.com/" target="_blank">GitHub</a></li>
+        
+        <li><i class="fab fa-weibo"></i><a href="https://weibo.com/" target="_blank">Weibo</a></li>
+        
+      </ul>
+    </div>
+    
+    
+    <hr>
+    <div class="blogroll sidebar-item">
+      <div><i class="fas fa-link"></i>友情链接</div>
+      <ul>
+        
+        <li><i class="fas fa-link"></i><a href="https://github.com/" target="_blank">GitHub</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://developer.mozilla.org/" target="_blank">MDN</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://mozilla.github.io/nunjucks/" target="_blank">Nunjucks</a></li>
+        
+      </ul>
+    </div>
     
   </div>
 </aside>
@@ -248,7 +318,7 @@
       </div>
     </main>
     
-<footer id="footer" class="footer">
+<footer id="footer" class="footer" style="background: #33363b;">
   <div class="container">
     <div class="back-to-top">
       <button id="back-to-top"><i class="fas fa-angle-double-up" aria-label="回到顶部"></i></button>
@@ -259,9 +329,15 @@
           <span class="author">John Doe</span><span class="year"><i class="far fa-copyright"></i>2019</span>
         </div>
         
+        <div class="busuanzi">
+          <span id="busuanzi_container_site_pv"><i class="fas fa-eye" aria-label="站点点击量" aria-hidden="false"></i><span id="busuanzi_value_site_pv"></span></span><span id="busuanzi_container_site_uv"><i class="fas fa-user" aria-label="站点用户数" aria-hidden="false"></i><span id="busuanzi_value_site_uv"></span></span><span id="busuanzi_container_page_pv"><i class="far fa-file-alt"></i><span id="busuanzi_value_page_pv" aria-label="页面点击量" aria-hidden="false"></span></span>
+        </div>
+        
       </div>
       <div class="footer-right">
         <div class="custom-info">
+          
+          托管于<i class="fab fa-github-alt"></i><a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
           
         </div>
         <div class="powered-by">

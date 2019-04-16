@@ -5,19 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
+    <meta name="theme-color" content="#33363b">
+    <meta name="msapplication-TileColor" content="#33363b">
     
     
     
     
+    <meta name="keywords" content="Life, ARIA, Hexo">
     
     
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
     
     
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png">
     
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    
+    
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#33363b">
+    
+    
+    <link rel="manifest" href="/favicons/site.webmanifest">
+    
+    
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
     
     
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
     
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicons/favicon.ico">
     
     
     <link rel="stylesheet" type="text/css" href="/css/normalize.css">
@@ -30,7 +51,7 @@
 <link rel="stylesheet" type="text/css" href="/css/post.css">
 
     <link rel="stylesheet" type="text/css" href="/css/custom.css">
-    <link rel="stylesheet" type="text/css" href="/css/[object Object].css">
+    <link rel="stylesheet" type="text/css" href="/css/atom-one-dark.css">
     <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css">
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script defer type="text/javascript" src="/js/util.js"></script>
@@ -43,6 +64,8 @@
     <script defer type="text/javascript" src="/js/lg-pager.min.js"></script>
     <script defer type="text/javascript" src="/js/lg-thumbnail.min.js"></script>
     <script defer type="text/javascript" src="/js/lg-zoom.min.js"></script>
+    
+    <script defer src="/js/busuanzi.pure.mini.js"></script>
     
     
     <script defer type="text/javascript" src="/js/search.js"></script>
@@ -112,9 +135,9 @@
     <script defer type="text/javascript" src="/js/custom.js"></script>
     <title>Go并发 | Hexo</title>
   </head>
-  <body itemscope itemtype="http://schema.org/WebPage" lang="default" data-spy="scroll" data-target=".list-group">
+  <body itemscope itemtype="http://schema.org/WebPage" lang="zh_CN" data-spy="scroll" data-target=".list-group">
     
-<header id="header" class="header">
+<header id="header" class="header" style="background: #33363b;">
   <div class="container">
     <div class="header-container">
       <div class="header-title">
@@ -122,10 +145,18 @@
         <h2 class="subtitle"></h2>
       </div>
       
+      <div class="logo">
+        <img src="/images/logo.png" alt="logo">
+      </div>
+      
     </div>
     <nav id="nav" class="nav">
       <a id="nav-toggle" class="nav-toggle" aria-hidden="true"><i class="fas fa-bars" aria-label="切换导航栏"></i></a>
       <ul id="menu" role="menubar" aria-hidden="false">
+        
+        <li role="menuitem"><a href="/"><i class="fas fa-home"></i><span class="menu-text">首页</span></a></li>
+        
+        <li role="menuitem"><a href="/archives/"><i class="fas fa-archive"></i><span class="menu-text">归档</span></a></li>
         
       </ul>
     </nav>
@@ -146,7 +177,7 @@
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
        <meta itemprop="name" content="John Doe">
        <meta itemprop="description" content>
-       <meta itemprop="image" content="/">
+       <meta itemprop="image" content="/images/avatar.png">
       </span>
       <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
        <meta itemprop="name" content="Hexo">
@@ -166,11 +197,11 @@
     </header>
     <main class="post-main" itemprop="articleBody">
       <h4 id="Go并发"><a href="#Go并发" class="headerlink" title="Go并发"></a>Go并发</h4><h5 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h5><h5 id="goroutine实际上是协程"><a href="#goroutine实际上是协程" class="headerlink" title="goroutine实际上是协程"></a>goroutine实际上是协程</h5><p>什么是协程？</p>
-<p>在<strong>一个线程</strong>中,假设有2个子程序A,B，作用是求5000以内的素数，并打印<br><figure class="hljs highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">A</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> outer := <span class="number">2</span>; outer &lt; <span class="number">5000</span>; outer++ &#123;</span><br><span class="line">        <span class="keyword">for</span> inner := <span class="number">2</span>; inner &lt; outer; inner++ &#123;</span><br><span class="line">            <span class="keyword">if</span> outer%inner == <span class="number">0</span> &#123;</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        fmt.Printf(<span class="string">"A:%d\n"</span>, outer)</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Printf(<span class="string">"A子程序结束"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">B</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> outer := <span class="number">2</span>; outer &lt; <span class="number">5000</span>; outer++ &#123;</span><br><span class="line">        <span class="keyword">for</span> inner := <span class="number">2</span>; inner &lt; outer; inner++ &#123;</span><br><span class="line">            <span class="keyword">if</span> outer%inner == <span class="number">0</span> &#123;</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        fmt.Printf(<span class="string">"B:%d\n"</span>, outer)</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Printf(<span class="string">"B子程序结束"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在<strong>一个线程</strong>中,假设有2个子程序A,B，作用是求5000以内的素数，并打印<br><figure class="hljs highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">A</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">for</span> outer := <span class="hljs-number">2</span>; outer &lt; <span class="hljs-number">5000</span>; outer++ &#123;<br>        <span class="hljs-keyword">for</span> inner := <span class="hljs-number">2</span>; inner &lt; outer; inner++ &#123;<br>            <span class="hljs-keyword">if</span> outer%inner == <span class="hljs-number">0</span> &#123;<br>                <span class="hljs-keyword">continue</span><br>            &#125;<br>        &#125;<br>        fmt.Printf(<span class="hljs-string">"A:%d\n"</span>, outer)<br>    &#125;<br>    fmt.Printf(<span class="hljs-string">"A子程序结束"</span>)<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">B</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">for</span> outer := <span class="hljs-number">2</span>; outer &lt; <span class="hljs-number">5000</span>; outer++ &#123;<br>        <span class="hljs-keyword">for</span> inner := <span class="hljs-number">2</span>; inner &lt; outer; inner++ &#123;<br>            <span class="hljs-keyword">if</span> outer%inner == <span class="hljs-number">0</span> &#123;<br>                <span class="hljs-keyword">continue</span><br>            &#125;<br>        &#125;<br>        fmt.Printf(<span class="hljs-string">"B:%d\n"</span>, outer)<br>    &#125;<br>    fmt.Printf(<span class="hljs-string">"B子程序结束"</span>)<br>&#125;<br></code></pre></td></tr></table></figure></p>
 <p>如果这两个子程序是以协程的形式调用，打印的结果会是怎样的?</p>
-<p>输出<br><figure class="hljs highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; B:<span class="number">2</span>~B:<span class="number">3467</span>     <span class="comment">//运行一段时间子程序B，子程序B挂起，开始运行子程序A</span></span><br><span class="line">&gt; A:<span class="number">2</span>~A:<span class="number">3467</span>     <span class="comment">//运行一段时间子程序A，子程序A挂起，开始运行子程序B</span></span><br><span class="line">&gt; B:<span class="number">3469</span>~B:<span class="number">4999</span>  <span class="comment">//运行一段时间子程序B，子程序B挂起，开始运行子程序A</span></span><br><span class="line">&gt; B子程序结束     <span class="comment">// B子程序结束</span></span><br><span class="line">&gt; A:<span class="number">3469</span>~A:<span class="number">4999</span>  <span class="comment">//运行一段时间子程序A</span></span><br><span class="line">&gt; A子程序结束     <span class="comment">// A子程序结束</span></span><br></pre></td></tr></table></figure></p>
+<p>输出<br><figure class="hljs highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js">&gt; B:<span class="hljs-number">2</span>~B:<span class="hljs-number">3467</span>     <span class="hljs-comment">//运行一段时间子程序B，子程序B挂起，开始运行子程序A</span><br>&gt; A:<span class="hljs-number">2</span>~A:<span class="hljs-number">3467</span>     <span class="hljs-comment">//运行一段时间子程序A，子程序A挂起，开始运行子程序B</span><br>&gt; B:<span class="hljs-number">3469</span>~B:<span class="hljs-number">4999</span>  <span class="hljs-comment">//运行一段时间子程序B，子程序B挂起，开始运行子程序A</span><br>&gt; B子程序结束     <span class="hljs-comment">// B子程序结束</span><br>&gt; A:<span class="hljs-number">3469</span>~A:<span class="hljs-number">4999</span>  <span class="hljs-comment">//运行一段时间子程序A</span><br>&gt; A子程序结束     <span class="hljs-comment">// A子程序结束</span><br></code></pre></td></tr></table></figure></p>
 <p>协程就是在一个线程中多个子程序切换运行，这样就叫做协程。</p>
-<p>而且注意到上例中协程的切换是程序内部自己调度的。上述例子的完整代码如下，大家可以自己尝试：<br><figure class="hljs highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"sync"</span></span><br><span class="line">    <span class="string">"runtime"</span></span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//调度器只能为该程序使用一个逻辑处理器</span></span><br><span class="line">    runtime.GOMAXPROCS(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> wg sync.WaitGroup</span><br><span class="line">    wg.Add(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    fmt.Println(<span class="string">"start goroutine"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span> <span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">defer</span> wg.Done()</span><br><span class="line">    <span class="keyword">for</span> outer := <span class="number">2</span>; outer &lt; <span class="number">5000</span>; outer++ &#123;</span><br><span class="line">        <span class="keyword">for</span> inner := <span class="number">2</span>; inner &lt; outer; inner++ &#123;</span><br><span class="line">            <span class="keyword">if</span> outer%inner == <span class="number">0</span> &#123;</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        fmt.Printf(<span class="string">"A:%d\n"</span>, outer)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;()</span><br><span class="line"></span><br><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span> <span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">defer</span> wg.Done()</span><br><span class="line">    <span class="keyword">for</span> outer := <span class="number">2</span>; outer &lt; <span class="number">5000</span>; outer++ &#123;</span><br><span class="line">        <span class="keyword">for</span> inner := <span class="number">2</span>; inner &lt; outer; inner++ &#123;</span><br><span class="line">            <span class="keyword">if</span> outer%inner == <span class="number">0</span> &#123;</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        fmt.Printf(<span class="string">"B:%d\n"</span>, outer)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;()</span><br><span class="line"></span><br><span class="line">    fmt.Println(<span class="string">"waiting to finish"</span>)</span><br><span class="line"></span><br><span class="line">    wg.Wait()</span><br><span class="line"></span><br><span class="line">    fmt.Println(<span class="string">"Terminating Program"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>而且注意到上例中协程的切换是程序内部自己调度的。上述例子的完整代码如下，大家可以自己尝试：<br><figure class="hljs highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">"sync"</span><br>    <span class="hljs-string">"runtime"</span><br>    <span class="hljs-string">"fmt"</span><br>)<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-comment">//调度器只能为该程序使用一个逻辑处理器</span><br>    runtime.GOMAXPROCS(<span class="hljs-number">1</span>)<br><br>    <span class="hljs-keyword">var</span> wg sync.WaitGroup<br>    wg.Add(<span class="hljs-number">2</span>)<br><br>    fmt.Println(<span class="hljs-string">"start goroutine"</span>)<br><br><br><span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">defer</span> wg.Done()<br>    <span class="hljs-keyword">for</span> outer := <span class="hljs-number">2</span>; outer &lt; <span class="hljs-number">5000</span>; outer++ &#123;<br>        <span class="hljs-keyword">for</span> inner := <span class="hljs-number">2</span>; inner &lt; outer; inner++ &#123;<br>            <span class="hljs-keyword">if</span> outer%inner == <span class="hljs-number">0</span> &#123;<br>                <span class="hljs-keyword">continue</span><br>            &#125;<br>        &#125;<br>        fmt.Printf(<span class="hljs-string">"A:%d\n"</span>, outer)<br>    &#125;<br>&#125;()<br><br><span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">defer</span> wg.Done()<br>    <span class="hljs-keyword">for</span> outer := <span class="hljs-number">2</span>; outer &lt; <span class="hljs-number">5000</span>; outer++ &#123;<br>        <span class="hljs-keyword">for</span> inner := <span class="hljs-number">2</span>; inner &lt; outer; inner++ &#123;<br>            <span class="hljs-keyword">if</span> outer%inner == <span class="hljs-number">0</span> &#123;<br>                <span class="hljs-keyword">continue</span><br>            &#125;<br>        &#125;<br>        fmt.Printf(<span class="hljs-string">"B:%d\n"</span>, outer)<br>    &#125;<br>&#125;()<br><br>    fmt.Println(<span class="hljs-string">"waiting to finish"</span>)<br><br>    wg.Wait()<br><br>    fmt.Println(<span class="hljs-string">"Terminating Program"</span>)<br>&#125;<br></code></pre></td></tr></table></figure></p>
 <p>协程的好处？</p>
 <p>1.相对于多线程，协程可以节省线程切换的开销，协程是程序内部自己调度，性能更好</p>
 <p>2.不需要多线程的锁机制，因为只有一个线程，也不存在同时写变量冲突，在协程中控制共享资源不加锁，只需要判断状态就好了，所以执行效率比多线程高很多。</p>
@@ -185,12 +216,12 @@
   <nav class="page-nav">
     <div class="page-nav-next page-nav-item">
       
-      <a href="/2019/04/16/Go/Go接口与多态/" rel="next" title="Go接口与多态"><i class="fas fa-angle-left"></i><span class="nav-title">Go接口与多态</span></a>
+      <a href="/2019/04/16/Go/Go切片/" rel="next" title="go切片"><i class="fas fa-angle-left"></i><span class="nav-title">go切片</span></a>
       
     </div>
     <div class="page-nav-prev page-nav-item">
       
-      <a href="/2019/04/16/Go/Go数组/" rel="prev" title="Go数组"><span class="nav-title">Go数组</span><i class="fas fa-angle-right"></i></a>
+      <a href="/2019/04/16/Hexo/Hexo/" rel="prev" title="Hexo的思考"><span class="nav-title">Hexo的思考</span><i class="fas fa-angle-right"></i></a>
       
     </div>
   </nav>
@@ -214,9 +245,20 @@
   
 <div class="info sidebar-item" id="info">
   
+  <img class="author-avatar" src="/images/avatar.png" alt="John Doe">
+  
   <h1 class="author-name">John Doe</h1>
   <h2 class="author-description"></h2>
   <div class="site-count">
+    
+    
+    
+    
+    <div class="archives-count count-block">
+      <div class="site-count-title">归档</div>
+      <div><a href="/archives/">13</a></div>
+    </div>
+    
     
   </div>
   
@@ -241,6 +283,34 @@
     
     
     
+    <hr>
+    <div class="social-link sidebar-item">
+      <div><i class="far fa-address-card"></i>社交链接<p></p></div>
+      <ul>
+        
+        <li><i class="fas fa-envelope"></i><a href="mailto:youremail@youremailhost" target="_blank">E-Mail</a></li>
+        
+        <li><i class="fab fa-github"></i><a href="https://github.com/" target="_blank">GitHub</a></li>
+        
+        <li><i class="fab fa-weibo"></i><a href="https://weibo.com/" target="_blank">Weibo</a></li>
+        
+      </ul>
+    </div>
+    
+    
+    <hr>
+    <div class="blogroll sidebar-item">
+      <div><i class="fas fa-link"></i>友情链接</div>
+      <ul>
+        
+        <li><i class="fas fa-link"></i><a href="https://github.com/" target="_blank">GitHub</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://developer.mozilla.org/" target="_blank">MDN</a></li>
+        
+        <li><i class="fas fa-link"></i><a href="https://mozilla.github.io/nunjucks/" target="_blank">Nunjucks</a></li>
+        
+      </ul>
+    </div>
     
   </div>
 </aside>
@@ -251,7 +321,7 @@
       </div>
     </main>
     
-<footer id="footer" class="footer">
+<footer id="footer" class="footer" style="background: #33363b;">
   <div class="container">
     <div class="back-to-top">
       <button id="back-to-top"><i class="fas fa-angle-double-up" aria-label="回到顶部"></i></button>
@@ -262,9 +332,15 @@
           <span class="author">John Doe</span><span class="year"><i class="far fa-copyright"></i>2019</span>
         </div>
         
+        <div class="busuanzi">
+          <span id="busuanzi_container_site_pv"><i class="fas fa-eye" aria-label="站点点击量" aria-hidden="false"></i><span id="busuanzi_value_site_pv"></span></span><span id="busuanzi_container_site_uv"><i class="fas fa-user" aria-label="站点用户数" aria-hidden="false"></i><span id="busuanzi_value_site_uv"></span></span><span id="busuanzi_container_page_pv"><i class="far fa-file-alt"></i><span id="busuanzi_value_page_pv" aria-label="页面点击量" aria-hidden="false"></span></span>
+        </div>
+        
       </div>
       <div class="footer-right">
         <div class="custom-info">
+          
+          托管于<i class="fab fa-github-alt"></i><a href="https://pages.github.com/" target="_blank">GitHub Pages</a>
           
         </div>
         <div class="powered-by">
