@@ -121,17 +121,7 @@ C:\Users\zyf\go\src\hello2里只用一个文件main.go12345package helloim ...</
 我觉得大家也没有必要在定义上去深究这些，我的理解是：同一个行为 ...</div><div class="read-more"><a class="more" href="/2019/04/16/Go接口与多态/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/04/16/Go接口/">no_title</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-04-16T02:52:00.056Z">2019-04-16</time></div><div class="recent-post-content">Go接口接口的含义从面向对象的语言的角度来说，就是约束类(对象)的属性和方法。
 比如java或者typescript
 go中的接口的使用和方法集看看接口的使用方法
-1234567891011121314151617181920212223242526272829package mainimport (    "fmt")type printInfor interface &#123;	printInfo()&#125;type user struct &#123;    name string    email string&#125;func (u *user) printInfo() &# ...</div><div class="read-more"><a class="more" href="/2019/04/16/Go接口/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/04/16/Go函数参数传递和引用类型/test/">no_title</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-04-16T02:52:00.006Z">2019-04-16</time></div><div class="recent-post-content">let obj={
-    name:"old name"
-}
-
-let changename= function(object){
-    object.name="new name"
-}
-
-console.log(obj) //{ name: 'old name' }
-changename(obj)
-console.log(obj) //{ name: 'new name' }</div><div class="read-more"><a class="more" href="/2019/04/16/Go函数参数传递和引用类型/test/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/04/16/Go函数参数传递和引用类型/test2/">no_title</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-04-16T02:52:00.006Z">2019-04-16</time></div><div class="recent-post-content">let obj={
+1234567891011121314151617181920212223242526272829package mainimport (    "fmt")type printInfor interface &#123;	printInfo()&#125;type user struct &#123;    name string    email string&#125;func (u *user) printInfo() &# ...</div><div class="read-more"><a class="more" href="/2019/04/16/Go接口/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/04/16/Go函数参数传递和引用类型/test2/">no_title</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-04-16T02:52:00.006Z">2019-04-16</time></div><div class="recent-post-content">let obj={
     name:"old name"
 }
 
@@ -142,4 +132,14 @@ let changename= function(object){
 
 console.log(obj) //{ name: 'old name' }
 changename(obj)
-console.log(obj) //{ name: 'new name' }</div><div class="read-more"><a class="more" href="/2019/04/16/Go函数参数传递和引用类型/test2/#more">ReadMore</a></div><hr></div></section><nav class="cxo-page-nav"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">NEXT &#62;</a></nav></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
+console.log(obj) //{ name: 'new name' }</div><div class="read-more"><a class="more" href="/2019/04/16/Go函数参数传递和引用类型/test2/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/04/16/Go函数参数传递和引用类型/test/">no_title</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-04-16T02:52:00.006Z">2019-04-16</time></div><div class="recent-post-content">let obj={
+    name:"old name"
+}
+
+let changename= function(object){
+    object.name="new name"
+}
+
+console.log(obj) //{ name: 'old name' }
+changename(obj)
+console.log(obj) //{ name: 'new name' }</div><div class="read-more"><a class="more" href="/2019/04/16/Go函数参数传递和引用类型/test/#more">ReadMore</a></div><hr></div></section><nav class="cxo-page-nav"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">NEXT &#62;</a></nav></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
