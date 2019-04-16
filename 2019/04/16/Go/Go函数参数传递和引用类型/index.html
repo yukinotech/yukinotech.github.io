@@ -1,90 +1,291 @@
-{% extends "_layout.njk" %}
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+    
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+    
+    
+<link rel="stylesheet" type="text/css" href="/css/page.css">
+<link rel="stylesheet" type="text/css" href="/css/post.css">
 
-{% block css %}
-<link rel="stylesheet" type="text/css" href="{{ url_for("css/page.css") }}">
-<link rel="stylesheet" type="text/css" href="{{ url_for("css/post.css") }}">
-{% endblock %}
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/css/[object Object].css">
+    <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/js/util.js"></script>
+    <script defer type="text/javascript" src="/js/clipboard.min.js"></script>
+    <script defer type="text/javascript" src="/js/scrollspy.js"></script>
+    <script defer type="text/javascript" src="/js/fontawesome-all.min.js"></script>
+    <script defer type="text/javascript" src="/js/lightgallery.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-fullscreen.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-hash.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-pager.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-thumbnail.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-zoom.min.js"></script>
+    
+    
+    <script defer type="text/javascript" src="/js/search.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var searchPath = "search.xml";
+      if (searchPath.length === 0) {
+        searchPath = "search.xml";
+      }
+      var path = "/" + searchPath;
+      searchFunc(path, "search-input", "search-result");
+    });
+    </script>
+    
+    
+    <script defer type="text/javascript" src="/js/index.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var cb = null;
+      var els = $(".post figure.highlight");
+      if (els.length) {
+        // Enabled Hexo highlight line number.
+        $(els).each(function (i, e) {
+          $(e).before("<button class=\"copy button\">复制</button>");
+        });
+        cb = new ClipboardJS("button.copy", {
+          "target": function (trigger) {
+              // Get target element by DOM API.
+              // nextElementSibling is figure,highlight.
+              // And following is the sequence of Hexo's internal
+              // highlight layout with line number.
+              return trigger.nextElementSibling.firstChild.firstChild.firstChild.lastChild.firstChild.firstChild;
+          }
+        });
+      } else {
+        // Disabled Hexo highlight line number.
+        els = $(".post pre code");
+        $(els).each(function (i, e) {
+          // Add button before pre, not code.
+          $(e).parent().before("<button class=\"copy button\">复制</button>");
+        });
+        cb = new ClipboardJS("button.copy", {
+          "target": function (trigger) {
+              // Get target element by DOM API.
+              // nextElementSibling is figure,highlight.
+              // And following is the sequence of Hexo's internal
+              // highlight layout without line number.
+              return trigger.nextElementSibling.firstChild;
+          }
+        });
+      }
+      cb.on("success", function (e) {
+        e.clearSelection();
+        var trigger = e.trigger;
+        // Change button text as a user tip.
+        trigger.innerHTML = "已复制";
+        $(trigger).addClass("copied");
+        // Change button text back;
+        setTimeout(function () {
+          trigger.innerHTML = "复制";
+          $(trigger).removeClass("copied");
+        }, 1500);
+      });
+    });
+    </script>
+    
+    <script defer type="text/javascript" src="/js/custom.js"></script>
+    <title>Go函数参数传递和引用类型 | Hexo</title>
+  </head>
+  <body itemscope itemtype="http://schema.org/WebPage" lang="default" data-spy="scroll" data-target=".list-group">
+    
+<header id="header" class="header">
+  <div class="container">
+    <div class="header-container">
+      <div class="header-title">
+        <h1 class="title"><a href="/">Hexo</a></h1>
+        <h2 class="subtitle"></h2>
+      </div>
+      
+    </div>
+    <nav id="nav" class="nav">
+      <a id="nav-toggle" class="nav-toggle" aria-hidden="true"><i class="fas fa-bars" aria-label="切换导航栏"></i></a>
+      <ul id="menu" role="menubar" aria-hidden="false">
+        
+      </ul>
+    </nav>
+  </div>
+</header>
 
-{% block title %}{{ page.title }} | {{ config.title }}{% if config.subtitle %} - {{ config.subtitle }}{% endif %}{% endblock %}
 
-{% block content %}
+    <main id="main" class="main">
+      <div class="container">
+        <div class="main-container">
+          <div class="content">
+            
 <div id="post" class="page">
-  {% set post = page %}
-  <article class="article post card{% if theme.animate %} animate{% endif %}" itemscope itemtype="http://schema.org/Article">
+  
+  <article class="article post card" itemscope itemtype="http://schema.org/Article">
     <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="{{ config.url }}{{ url_for(page.path) }}">
+      <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/16/Go/Go函数参数传递和引用类型/">
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-       <meta itemprop="name" content="{{ config.author }}">
-       <meta itemprop="description" content="{{ config.description }}">
-       <meta itemprop="image" content="{{ url_for(theme.avatar) }}">
+       <meta itemprop="name" content="John Doe">
+       <meta itemprop="description" content>
+       <meta itemprop="image" content="/">
       </span>
       <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-       <meta itemprop="name" content="{{ config.title }}">
+       <meta itemprop="name" content="Hexo">
       </span>
     </div>
     <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
+      <h1 class="post-title" itemprop="name headline">Go函数参数传递和引用类型</h1>
       <div class="post-meta">
-        {% if page.date %}
+        
         <span class="post-date">
-          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="{{ moment(post.date).format() }}">{{ date(post.date, config.date_format) }} {{ time(post.date, config.time_format) }}</time></span>
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2019-04-16T11:02:12+08:00">2019-04-16 11:02:12</time></span>
         </span>
-        {% endif %}
-        {% if page.categories and page.categories.toArray().length %}
-        {% if page.date %}
-        <span class="post-meta-divider divider">|</span>
-        {% endif %}
-        <span class="post-categories">
-          {# About `-`: https://mozilla.github.io/nunjucks/cn/templating.html#part-861ece9d8e5ce60c #}
-          {% for cat in page.categories.toArray() -%}
-          {% if loop.first %}<i class="far fa-folder-open"></i>{% else %}<i class="fas fa-angle-right"></i>{% endif %}<span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="{{ url_for(cat.path) }}" itemprop="url" rel="index"><span itemprop="name">{{ cat.name }}</span></a></span>
-          {%- endfor %}
-        </span>
-        {% endif %}
-        {% if page.comment !== false and theme.comment.enable %}
-        {% if theme.comment.disqus_shortname %}
-        {% if page.categories or page.date %}
-        <span class="post-meta-divider divider">|</span>
-        {% endif %}
-        <span class="post-comment-count">
-          <i class="far fa-comments"></i><span><a href="{{ url_for(page.path) }}#disqus_thread" itemprop="discussionUrl"><span class="post-comment-count disqus-comment-count" data-disqus-identifier="{{ page.path }}" itemprop="commentCount"></span></a></span>
-        </span>
-        {% endif %}
-        {% endif %}
+        
+        
+        
       </div>
     </header>
     <main class="post-main" itemprop="articleBody">
-      {{ page.content }}
+      <h4 id="Go函数参数传递和引用类型"><a href="#Go函数参数传递和引用类型" class="headerlink" title="Go函数参数传递和引用类型"></a>Go函数参数传递和引用类型</h4><h5 id="Go语言的类型"><a href="#Go语言的类型" class="headerlink" title="Go语言的类型"></a>Go语言的类型</h5><p>目前学到的</p>
+<p>基本类型：<br>string int bool </p>
+<p>引用类型：<br>切片,映射(map),接口(interface),函数(func)</p>
+<h5 id="函数参数的传递"><a href="#函数参数的传递" class="headerlink" title="函数参数的传递"></a>函数参数的传递</h5><p>go中函数参数分两种，值传递和指针传递<br>值传递：就是传递的变量的拷贝<br>指针传递：就是传递的变量的指针</p>
+<p>已知：<br><figure class="hljs highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> person <span class="keyword">struct</span>&#123;</span><br><span class="line">    name <span class="keyword">string</span></span><br><span class="line">    age <span class="keyword">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>值传递：<br><figure class="hljs highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span><span class="params">(p person)</span></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>指针传递：<br><figure class="hljs highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span><span class="params">(p *person)</span></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h6 id="struct作为函数参数的值传递"><a href="#struct作为函数参数的值传递" class="headerlink" title="struct作为函数参数的值传递"></a>struct作为函数参数的值传递</h6><p>看一个关于函数参数值传递的例子：<br><figure class="hljs highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> person <span class="keyword">struct</span>&#123;</span><br><span class="line">    name <span class="keyword">string</span></span><br><span class="line">    age <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    jim := person&#123;<span class="string">"jim"</span>,<span class="number">10</span>&#125; <span class="comment">//变量jim为类型person</span></span><br><span class="line">    fmt.Println(jim) <span class="comment">//&#123;jim 10&#125;</span></span><br><span class="line">    changename(jim)  <span class="comment">//传进函数的是值的拷贝</span></span><br><span class="line">    fmt.Println(jim) <span class="comment">//&#123;jim 10&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">changename</span><span class="params">(p person)</span></span>&#123;</span><br><span class="line">    p.name = <span class="string">"another"</span> <span class="comment">//这里是对拷贝赋值，没有效果</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里的changename接受的参数是值传递，就是说形参变量<code>p</code>是变量<code>jim</code>的副本。</p>
+<h6 id="struct作为函数参数的指针传递"><a href="#struct作为函数参数的指针传递" class="headerlink" title="struct作为函数参数的指针传递"></a>struct作为函数参数的指针传递</h6><p>我们换一个写法试试，改用指针传递，就能修改变量：<br><figure class="hljs highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> person <span class="keyword">struct</span>&#123;</span><br><span class="line">    name <span class="keyword">string</span></span><br><span class="line">    age <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    jim := person&#123;<span class="string">"jim"</span>,<span class="number">10</span>&#125;</span><br><span class="line">    fmt.Println(jim) <span class="comment">//&#123;jim 10&#125;</span></span><br><span class="line">    changename(&amp;jim)  <span class="comment">//传进函数的是变量jim的指针</span></span><br><span class="line">    fmt.Println(jim) <span class="comment">//&#123;another 10&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">changename</span><span class="params">(p *person)</span></span>&#123;</span><br><span class="line">    p.name = <span class="string">"another"</span> <span class="comment">//这里是指针指向的变量赋值，所以有效果</span></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    细心的同学可能发现p是一个指针变量，为什么能直接加.name?</span></span><br><span class="line"><span class="comment">    此处是go语言编译器自动转换了写法</span></span><br><span class="line"><span class="comment">    准确来写应该是：</span></span><br><span class="line"><span class="comment">    (*p).name = "another"</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>写到这里大家可能会觉得struct应该是一个基本类型，可能有的同学不太明白，函数参数的值传递，指针传递和变量的基本类型，引用类型有什么关系。</p>
+<p>我再举一个例子，依然是值传递和指针传递，但是这次参数选一个引用类型：切片</p>
+<h6 id="切片作为函数参数的值传递"><a href="#切片作为函数参数的值传递" class="headerlink" title="切片作为函数参数的值传递"></a>切片作为函数参数的值传递</h6><figure class="hljs highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    persons := []<span class="keyword">string</span>&#123;<span class="string">"jim"</span>,<span class="string">"tom"</span>,<span class="string">"panda"</span>&#125;</span><br><span class="line">    fmt.Println(persons) <span class="comment">//[jim tom panda]</span></span><br><span class="line">    changeperson(persons)  <span class="comment">//传进函数的是切片的拷贝</span></span><br><span class="line">    fmt.Println(persons) <span class="comment">//[another tom panda]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">changeperson</span><span class="params">(p []<span class="keyword">string</span>)</span></span>&#123;</span><br><span class="line">    p[<span class="number">0</span>] = <span class="string">"another"</span> <span class="comment">//这里是对拷贝赋值，但仍有效果</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为什么切片作为值的拷贝传递，修改拷贝的值仍然有效果？<br>因为之前讲过，切片是引用类型，切片本身可以理解为包含3个字段的struct：指向底层数组的指针，长度，容量。因此即使在函数<code>changeperson</code>中变量<code>p</code>是值的拷贝，切片作为引用类型，变量<code>p</code>仍然包含了指向底层数组的指针,因此能够修改底层数组成功。</p>
+<h6 id="js中一个引用类型的例子"><a href="#js中一个引用类型的例子" class="headerlink" title="js中一个引用类型的例子"></a>js中一个引用类型的例子</h6><p>我再举一个javascript的例子进行比较一下(不熟悉js的同学可忽略)</p>
+<figure class="hljs highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj=&#123;</span><br><span class="line">    name:<span class="string">"old name"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> changename= <span class="function"><span class="keyword">function</span>(<span class="params">object</span>)</span>&#123;</span><br><span class="line">    object.name=<span class="string">"new name"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj) <span class="comment">//&#123; name: 'old name' &#125;</span></span><br><span class="line">changename(obj)</span><br><span class="line"><span class="built_in">console</span>.log(obj) <span class="comment">//&#123; name: 'new name' &#125;</span></span><br></pre></td></tr></table></figure>
+<p>js中<code>Object</code>是引用类型，这里obj传递的实际上仍然是值的复制(js中没有显式的指针的概念)，但是在这个副本中仍然包含了引用类型这个对象在内存中的指针，因此可以修改内存中的值。</p>
+<p>所以在js中这么写是无效的：<br><figure class="hljs highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj=&#123;</span><br><span class="line">    name:<span class="string">"old name"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> changename= <span class="function"><span class="keyword">function</span>(<span class="params">object</span>)</span>&#123;</span><br><span class="line">    object.name=<span class="string">"new name"</span></span><br><span class="line">    object=<span class="literal">null</span> <span class="comment">//是没有用的，object只是一个值的复制</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj) <span class="comment">//&#123; name: 'old name' &#125;</span></span><br><span class="line">changename(obj)</span><br><span class="line"><span class="built_in">console</span>.log(obj) <span class="comment">//&#123; name: 'new name' &#125;</span></span><br></pre></td></tr></table></figure></p>
+<h6 id="切片作为指针传递"><a href="#切片作为指针传递" class="headerlink" title="切片作为指针传递"></a>切片作为指针传递</h6><figure class="hljs highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    persons := []<span class="keyword">string</span>&#123;<span class="string">"jim"</span>,<span class="string">"tom"</span>,<span class="string">"panda"</span>&#125;</span><br><span class="line">    fmt.Println(persons) <span class="comment">//[jim tom panda]</span></span><br><span class="line">    changeperson(&amp;persons)  <span class="comment">//传进函数的是变量的指针</span></span><br><span class="line">    fmt.Println(persons) <span class="comment">//[another tom panda]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">changeperson</span><span class="params">(p *[]<span class="keyword">string</span>)</span></span>&#123;</span><br><span class="line">    (*p)[<span class="number">0</span>] = <span class="string">"another"</span> <span class="comment">//这里直接取到指向指针地址对应的变量，并赋值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可见对于引用变量，起码对于切片而言，传递值和传递指针，变化并不是那么明显。</p>
+
     </main>
     <footer class="post-footer">
-      {% if page.tags and page.tags.toArray().length %}
-      <div class="post-tags">
-        {% for tag in page.tags.toArray() %}
-        <a class="post-tag button" href="{{ url_for(tag.path) }}" rel="tag"><i class="fas fa-tags"></i>{{ tag.name }}</a>
-        {% endfor %}
-      </div>
-      {% endif %}
+      
     </footer>
   </article>
-  {% if theme.reward.enable %}
-  {% include "reward.njk" %}
-  {% endif %}
-  {% if page.prev or page.next %}
+  
+  
   <nav class="page-nav">
     <div class="page-nav-next page-nav-item">
-      {% if page.next %}
-      <a href="{{ url_for(page.next.path) }}" rel="next" title="{{ page.next.title }}"><i class="fas fa-angle-left"></i><span class="nav-title">{{ page.next.title }}</span></a>
-      {% endif %}
+      
+      <a href="/2019/04/16/Go/Go接口/" rel="next" title="Go接口"><i class="fas fa-angle-left"></i><span class="nav-title">Go接口</span></a>
+      
     </div>
     <div class="page-nav-prev page-nav-item">
-      {% if page.prev %}
-      <a href="{{ url_for(page.prev.path) }}" rel="prev" title="{{ page.prev.title }}"><span class="nav-title">{{ page.prev.title }}</span><i class="fas fa-angle-right"></i></a>
-      {% endif %}
+      
+      <a href="/2019/04/16/Go/Go镶嵌类型/" rel="prev" title="Go镶嵌类型"><span class="nav-title">Go镶嵌类型</span><i class="fas fa-angle-right"></i></a>
+      
     </div>
   </nav>
-  {% endif %}
-  {% if theme.comment.enable %}
-  {% include "comment.njk" %}
-  {% endif %}
+  
+  
 </div>
-{% endblock %}
+
+          </div>
+          
+          
+          
+<aside class="sidebar" id="sidebar" style="background: url(/images/background.png);">
+  
+  <div class="search">
+    <div class="form-group">
+      <i class="fas fa-search"></i><input type="search" id="search-input" name="q" results="0" placeholder="搜索" class="form-control">
+    </div>
+  </div>
+  <div class="search-result-box" id="search-result"></div>
+  
+  
+<div class="info sidebar-item" id="info">
+  
+  <h1 class="author-name">John Doe</h1>
+  <h2 class="author-description"></h2>
+  <div class="site-count">
+    
+  </div>
+  
+  <div class="rss">
+    <a class="rss-link button sidebar-item" href="/atom.xml"><i class="fas fa-rss"></i>RSS</a>
+  </div>
+  
+</div>
+
+
+  <div class="sidebar-sticky">
+    
+    
+    
+    
+    
+    <hr>
+    <div class="post-toc sidebar-item" id="toc-div">
+      <div><i class="fas fa-list-ol"></i>文章目录</div>
+      <div class="post-toc-content"><ol class="list-group toc"><li class="toc-item toc-level-4"><a class="list-group-item toc-link" href="#Go函数参数传递和引用类型"><span class="toc-text">Go函数参数传递和引用类型</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-5"><a class="list-group-item toc-link" href="#Go语言的类型"><span class="toc-text">Go语言的类型</span></a></li><li class="toc-item toc-level-5"><a class="list-group-item toc-link" href="#函数参数的传递"><span class="toc-text">函数参数的传递</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-6"><a class="list-group-item toc-link" href="#struct作为函数参数的值传递"><span class="toc-text">struct作为函数参数的值传递</span></a></li><li class="toc-item toc-level-6"><a class="list-group-item toc-link" href="#struct作为函数参数的指针传递"><span class="toc-text">struct作为函数参数的指针传递</span></a></li><li class="toc-item toc-level-6"><a class="list-group-item toc-link" href="#切片作为函数参数的值传递"><span class="toc-text">切片作为函数参数的值传递</span></a></li><li class="toc-item toc-level-6"><a class="list-group-item toc-link" href="#js中一个引用类型的例子"><span class="toc-text">js中一个引用类型的例子</span></a></li><li class="toc-item toc-level-6"><a class="list-group-item toc-link" href="#切片作为指针传递"><span class="toc-text">切片作为指针传递</span></a></li></ol></li></ol></li></ol></div>
+    </div>
+    
+    
+    
+    
+  </div>
+</aside>
+
+
+          
+        </div>
+      </div>
+    </main>
+    
+<footer id="footer" class="footer">
+  <div class="container">
+    <div class="back-to-top">
+      <button id="back-to-top"><i class="fas fa-angle-double-up" aria-label="回到顶部"></i></button>
+    </div>
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="copyright">
+          <span class="author">John Doe</span><span class="year"><i class="far fa-copyright"></i>2019</span>
+        </div>
+        
+      </div>
+      <div class="footer-right">
+        <div class="custom-info">
+          
+        </div>
+        <div class="powered-by">
+          由 <a href="https://hexo.io/" target="_blank">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/AlynxZhou/hexo-theme-aria/" target="_blank">ARIA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  </body>
+</html>

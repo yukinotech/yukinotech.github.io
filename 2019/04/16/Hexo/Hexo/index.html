@@ -1,90 +1,327 @@
-{% extends "_layout.njk" %}
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+    
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+    
+    
+<link rel="stylesheet" type="text/css" href="/css/page.css">
+<link rel="stylesheet" type="text/css" href="/css/post.css">
 
-{% block css %}
-<link rel="stylesheet" type="text/css" href="{{ url_for("css/page.css") }}">
-<link rel="stylesheet" type="text/css" href="{{ url_for("css/post.css") }}">
-{% endblock %}
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/css/[object Object].css">
+    <link rel="stylesheet" type="text/css" href="/css/lightgallery.min.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script defer type="text/javascript" src="/js/util.js"></script>
+    <script defer type="text/javascript" src="/js/clipboard.min.js"></script>
+    <script defer type="text/javascript" src="/js/scrollspy.js"></script>
+    <script defer type="text/javascript" src="/js/fontawesome-all.min.js"></script>
+    <script defer type="text/javascript" src="/js/lightgallery.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-fullscreen.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-hash.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-pager.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-thumbnail.min.js"></script>
+    <script defer type="text/javascript" src="/js/lg-zoom.min.js"></script>
+    
+    
+    <script defer type="text/javascript" src="/js/search.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var searchPath = "search.xml";
+      if (searchPath.length === 0) {
+        searchPath = "search.xml";
+      }
+      var path = "/" + searchPath;
+      searchFunc(path, "search-input", "search-result");
+    });
+    </script>
+    
+    
+    <script defer type="text/javascript" src="/js/index.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+      var cb = null;
+      var els = $(".post figure.highlight");
+      if (els.length) {
+        // Enabled Hexo highlight line number.
+        $(els).each(function (i, e) {
+          $(e).before("<button class=\"copy button\">复制</button>");
+        });
+        cb = new ClipboardJS("button.copy", {
+          "target": function (trigger) {
+              // Get target element by DOM API.
+              // nextElementSibling is figure,highlight.
+              // And following is the sequence of Hexo's internal
+              // highlight layout with line number.
+              return trigger.nextElementSibling.firstChild.firstChild.firstChild.lastChild.firstChild.firstChild;
+          }
+        });
+      } else {
+        // Disabled Hexo highlight line number.
+        els = $(".post pre code");
+        $(els).each(function (i, e) {
+          // Add button before pre, not code.
+          $(e).parent().before("<button class=\"copy button\">复制</button>");
+        });
+        cb = new ClipboardJS("button.copy", {
+          "target": function (trigger) {
+              // Get target element by DOM API.
+              // nextElementSibling is figure,highlight.
+              // And following is the sequence of Hexo's internal
+              // highlight layout without line number.
+              return trigger.nextElementSibling.firstChild;
+          }
+        });
+      }
+      cb.on("success", function (e) {
+        e.clearSelection();
+        var trigger = e.trigger;
+        // Change button text as a user tip.
+        trigger.innerHTML = "已复制";
+        $(trigger).addClass("copied");
+        // Change button text back;
+        setTimeout(function () {
+          trigger.innerHTML = "复制";
+          $(trigger).removeClass("copied");
+        }, 1500);
+      });
+    });
+    </script>
+    
+    <script defer type="text/javascript" src="/js/custom.js"></script>
+    <title>Hexo的思考 | Hexo</title>
+  </head>
+  <body itemscope itemtype="http://schema.org/WebPage" lang="default" data-spy="scroll" data-target=".list-group">
+    
+<header id="header" class="header">
+  <div class="container">
+    <div class="header-container">
+      <div class="header-title">
+        <h1 class="title"><a href="/">Hexo</a></h1>
+        <h2 class="subtitle"></h2>
+      </div>
+      
+    </div>
+    <nav id="nav" class="nav">
+      <a id="nav-toggle" class="nav-toggle" aria-hidden="true"><i class="fas fa-bars" aria-label="切换导航栏"></i></a>
+      <ul id="menu" role="menubar" aria-hidden="false">
+        
+      </ul>
+    </nav>
+  </div>
+</header>
 
-{% block title %}{{ page.title }} | {{ config.title }}{% if config.subtitle %} - {{ config.subtitle }}{% endif %}{% endblock %}
 
-{% block content %}
+    <main id="main" class="main">
+      <div class="container">
+        <div class="main-container">
+          <div class="content">
+            
 <div id="post" class="page">
-  {% set post = page %}
-  <article class="article post card{% if theme.animate %} animate{% endif %}" itemscope itemtype="http://schema.org/Article">
+  
+  <article class="article post card" itemscope itemtype="http://schema.org/Article">
     <div class="post-block">
-      <link itemprop="mainEntityOfPage" href="{{ config.url }}{{ url_for(page.path) }}">
+      <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/16/Hexo/Hexo/">
       <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-       <meta itemprop="name" content="{{ config.author }}">
-       <meta itemprop="description" content="{{ config.description }}">
-       <meta itemprop="image" content="{{ url_for(theme.avatar) }}">
+       <meta itemprop="name" content="John Doe">
+       <meta itemprop="description" content>
+       <meta itemprop="image" content="/">
       </span>
       <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-       <meta itemprop="name" content="{{ config.title }}">
+       <meta itemprop="name" content="Hexo">
       </span>
     </div>
     <header class="post-header">
-      <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
+      <h1 class="post-title" itemprop="name headline">Hexo的思考</h1>
       <div class="post-meta">
-        {% if page.date %}
+        
         <span class="post-date">
-          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="{{ moment(post.date).format() }}">{{ date(post.date, config.date_format) }} {{ time(post.date, config.time_format) }}</time></span>
+          <i class="far fa-calendar-plus"></i><span><time title="post-date" itemprop="dateCreated datePublished" datetime="2019-04-16T12:12:00+08:00">2019-04-16 12:12:00</time></span>
         </span>
-        {% endif %}
-        {% if page.categories and page.categories.toArray().length %}
-        {% if page.date %}
-        <span class="post-meta-divider divider">|</span>
-        {% endif %}
-        <span class="post-categories">
-          {# About `-`: https://mozilla.github.io/nunjucks/cn/templating.html#part-861ece9d8e5ce60c #}
-          {% for cat in page.categories.toArray() -%}
-          {% if loop.first %}<i class="far fa-folder-open"></i>{% else %}<i class="fas fa-angle-right"></i>{% endif %}<span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="{{ url_for(cat.path) }}" itemprop="url" rel="index"><span itemprop="name">{{ cat.name }}</span></a></span>
-          {%- endfor %}
-        </span>
-        {% endif %}
-        {% if page.comment !== false and theme.comment.enable %}
-        {% if theme.comment.disqus_shortname %}
-        {% if page.categories or page.date %}
-        <span class="post-meta-divider divider">|</span>
-        {% endif %}
-        <span class="post-comment-count">
-          <i class="far fa-comments"></i><span><a href="{{ url_for(page.path) }}#disqus_thread" itemprop="discussionUrl"><span class="post-comment-count disqus-comment-count" data-disqus-identifier="{{ page.path }}" itemprop="commentCount"></span></a></span>
-        </span>
-        {% endif %}
-        {% endif %}
+        
+        
+        
       </div>
     </header>
     <main class="post-main" itemprop="articleBody">
-      {{ page.content }}
+      <h1 id="Hexo的思考"><a href="#Hexo的思考" class="headerlink" title="Hexo的思考"></a>Hexo的思考</h1><h2 id="一个好的blog的标准"><a href="#一个好的blog的标准" class="headerlink" title="一个好的blog的标准"></a>一个好的blog的标准</h2><p>我为啥要做一个Hexo的博客？</p>
+<p>一开始是因为配合github.io搭建可以直接架在公网上，便宜。但是随着我想增加一下Hexo的功能，比如写作时的热更新，主题的更换和魔改，关于Hexo的SEO等等，我发现Hexo并没有我想象中的那么方便。</p>
+<p>我自己也写过一些简单的动态博客，用mongodb+express+react来构建。因为是动态博客，我自己也实现了markdown在线编辑，在线保存，实时预览的效果。这样看来Hexo在不装社区中大大小小的插件的时候，使用起来就不那么令人舒适。</p>
+<p>和Hexo类似的，老牌的博客建站程序WordPress，它又有啥不同？</p>
+<p>我想从博客这个产品的角度，web开发的角度来谈谈这三种blog</p>
+<h2 id="动态博客VS静态博客"><a href="#动态博客VS静态博客" class="headerlink" title="动态博客VS静态博客"></a>动态博客VS静态博客</h2><h3 id="前后端分离"><a href="#前后端分离" class="headerlink" title="前后端分离"></a>前后端分离</h3><p>假设你在运营一个论坛社区网站。一开始，你的用户很少，你不需要考虑很多复杂的问题。你是这么做的：</p>
+<ul>
+<li>选择一个云端服务商，购买一个云端虚拟服务器。</li>
+<li>在虚拟云端服务器上运行一个http服务器，提供路由，并将静态页面挂载到http服务器上。</li>
+<li>在虚拟云端服务器上运行一个数据库，http服务器根据路由，对数据库进行CURD，提供服务。</li>
+</ul>
+<p>里面可能有着更多技术细节，这方面就不多赘述。总之我们可以一台服务器就能解决问题。</p>
+<p>随着业务的发展，用户的增多，你开始有新的需求：希望不同地区，不同地域的人能够尽快的访问到你的页面。</p>
+<p>这时候就有一个新的方案：上述的3个步骤都不会变化，仅仅是将静态页面托管到CDN上。大公司会有自己的CDN集群服务，也可以购买其他公司的CDN集群服务。</p>
+<p>CDN简单来说，就是能让不同地方客户端的ip，能通过CDN服务器，访问到距离客户端最近（路由最近，时间最短）的服务器。</p>
+<p>回到我们blog的话题，你就会发现：</p>
+<ul>
+<li><p>WordPress</p>
+<ul>
+<li>定位CMS，动态站，可在线编辑文章，发布</li>
+<li>数据库+http服务器+页面，部署在一个服务器中</li>
+<li>可拓展性好</li>
+</ul>
+</li>
+<li><p>Hexo</p>
+<ul>
+<li>纯静态页面，无后端，可直接CDN部署</li>
+<li>更没有数据库,.md文件就是文章</li>
+</ul>
+</li>
+<li><p>自己写的博客</p>
+<ul>
+<li>前后端分离，可以把静态页面部署到CDN</li>
+<li>定位CMS，动态站，可在线编辑文章，发布</li>
+<li>可拓展性差</li>
+</ul>
+</li>
+</ul>
+<p>Hexo是轻量级的静态站，和WordPress定位是完全不同的。WordPress是CMS，而且可拓展性很好。</p>
+<p>我想下次谈Hugo时，仔细的比较一下WordPress。</p>
+<h2 id="用户体验"><a href="#用户体验" class="headerlink" title="用户体验"></a>用户体验</h2><p>Hexo这种静态站，别人不能留言，真的成了静态展示站…</p>
+<p>Hexo静态站，就只能本地编辑在deploy了，这个其实不算问题</p>
+<h2 id="何去何从"><a href="#何去何从" class="headerlink" title="何去何从"></a>何去何从</h2><p>静态站可能写的就是一些md了，Hexo(github.io大法好)</p>
+<p>动态站就会考虑使用Hugo了。(也可能真香了)(希望能和WordPress有很多不一样的地方)</p>
+<p>自己写的博客可能才是最舒服的，维护起来自己也好维护。</p>
+<p>社区开源CMS的思路好像只能适用于模板，不能配合react进行前后端分离吗？</p>
+
     </main>
     <footer class="post-footer">
-      {% if page.tags and page.tags.toArray().length %}
+      
       <div class="post-tags">
-        {% for tag in page.tags.toArray() %}
-        <a class="post-tag button" href="{{ url_for(tag.path) }}" rel="tag"><i class="fas fa-tags"></i>{{ tag.name }}</a>
-        {% endfor %}
+        
+        <a class="post-tag button" href="/tags/tag1/" rel="tag"><i class="fas fa-tags"></i>tag1</a>
+        
+        <a class="post-tag button" href="/tags/tag2/" rel="tag"><i class="fas fa-tags"></i>tag2</a>
+        
+        <a class="post-tag button" href="/tags/tag3/" rel="tag"><i class="fas fa-tags"></i>tag3</a>
+        
       </div>
-      {% endif %}
+      
     </footer>
   </article>
-  {% if theme.reward.enable %}
-  {% include "reward.njk" %}
-  {% endif %}
-  {% if page.prev or page.next %}
+  
+  
   <nav class="page-nav">
     <div class="page-nav-next page-nav-item">
-      {% if page.next %}
-      <a href="{{ url_for(page.next.path) }}" rel="next" title="{{ page.next.title }}"><i class="fas fa-angle-left"></i><span class="nav-title">{{ page.next.title }}</span></a>
-      {% endif %}
+      
+      <a href="/2019/04/16/Go/Go数组/" rel="next" title="Go数组"><i class="fas fa-angle-left"></i><span class="nav-title">Go数组</span></a>
+      
     </div>
     <div class="page-nav-prev page-nav-item">
-      {% if page.prev %}
-      <a href="{{ url_for(page.prev.path) }}" rel="prev" title="{{ page.prev.title }}"><span class="nav-title">{{ page.prev.title }}</span><i class="fas fa-angle-right"></i></a>
-      {% endif %}
+      
+      <a href="/2019/04/16/Hexo/Hexo的踩坑记录/" rel="prev" title="Hexo的踩坑记录"><span class="nav-title">Hexo的踩坑记录</span><i class="fas fa-angle-right"></i></a>
+      
     </div>
   </nav>
-  {% endif %}
-  {% if theme.comment.enable %}
-  {% include "comment.njk" %}
-  {% endif %}
+  
+  
 </div>
-{% endblock %}
+
+          </div>
+          
+          
+          
+<aside class="sidebar" id="sidebar" style="background: url(/images/background.png);">
+  
+  <div class="search">
+    <div class="form-group">
+      <i class="fas fa-search"></i><input type="search" id="search-input" name="q" results="0" placeholder="搜索" class="form-control">
+    </div>
+  </div>
+  <div class="search-result-box" id="search-result"></div>
+  
+  
+<div class="info sidebar-item" id="info">
+  
+  <h1 class="author-name">John Doe</h1>
+  <h2 class="author-description"></h2>
+  <div class="site-count">
+    
+  </div>
+  
+  <div class="rss">
+    <a class="rss-link button sidebar-item" href="/atom.xml"><i class="fas fa-rss"></i>RSS</a>
+  </div>
+  
+</div>
+
+
+  <div class="sidebar-sticky">
+    
+    
+    
+    
+    
+    <hr>
+    <div class="post-toc sidebar-item" id="toc-div">
+      <div><i class="fas fa-list-ol"></i>文章目录</div>
+      <div class="post-toc-content"><ol class="list-group toc"><li class="toc-item toc-level-1"><a class="list-group-item toc-link" href="#Hexo的思考"><span class="toc-text">Hexo的思考</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#一个好的blog的标准"><span class="toc-text">一个好的blog的标准</span></a></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#动态博客VS静态博客"><span class="toc-text">动态博客VS静态博客</span></a><ol class="list-group toc-child"><li class="toc-item toc-level-3"><a class="list-group-item toc-link" href="#前后端分离"><span class="toc-text">前后端分离</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#用户体验"><span class="toc-text">用户体验</span></a></li><li class="toc-item toc-level-2"><a class="list-group-item toc-link" href="#何去何从"><span class="toc-text">何去何从</span></a></li></ol></li></ol></div>
+    </div>
+    
+    
+    
+    
+  </div>
+</aside>
+
+
+          
+        </div>
+      </div>
+    </main>
+    
+<footer id="footer" class="footer">
+  <div class="container">
+    <div class="back-to-top">
+      <button id="back-to-top"><i class="fas fa-angle-double-up" aria-label="回到顶部"></i></button>
+    </div>
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="copyright">
+          <span class="author">John Doe</span><span class="year"><i class="far fa-copyright"></i>2019</span>
+        </div>
+        
+      </div>
+      <div class="footer-right">
+        <div class="custom-info">
+          
+        </div>
+        <div class="powered-by">
+          由 <a href="https://hexo.io/" target="_blank">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/AlynxZhou/hexo-theme-aria/" target="_blank">ARIA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  </body>
+</html>
