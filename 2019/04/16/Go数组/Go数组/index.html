@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="数组数组是一种非常有用的数据结构，因为其占用的内存是连续分配的。由于内存连续，CPU能把正在使用的数据缓存更久的时间。而且内存连续很容易计算索引，可以快速迭代数组里的所有元素。数组的类型信息可以提供每次访问一个元素时需要在内存中移动的距离。既然数组的每个元素类型相同，又是连续分配，就可以以固定速度索引数组中的任意数据，速度非常快。 注意：在 Go 中数组是值类型而不是引用类型。这意味着当数组变量被">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2019/04/16/Go数组/Go数组/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="数组数组是一种非常有用的数据结构，因为其占用的内存是连续分配的。由于内存连续，CPU能把正在使用的数据缓存更久的时间。而且内存连续很容易计算索引，可以快速迭代数组里的所有元素。数组的类型信息可以提供每次访问一个元素时需要在内存中移动的距离。既然数组的每个元素类型相同，又是连续分配，就可以以固定速度索引数组中的任意数据，速度非常快。 注意：在 Go 中数组是值类型而不是引用类型。这意味着当数组变量被">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-12T05:53:25.525Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="数组数组是一种非常有用的数据结构，因为其占用的内存是连续分配的。由于内存连续，CPU能把正在使用的数据缓存更久的时间。而且内存连续很容易计算索引，可以快速迭代数组里的所有元素。数组的类型信息可以提供每次访问一个元素时需要在内存中移动的距离。既然数组的每个元素类型相同，又是连续分配，就可以以固定速度索引数组中的任意数据，速度非常快。 注意：在 Go 中数组是值类型而不是引用类型。这意味着当数组变量被">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Go数组/Go数组" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/16/Go数组/Go数组/" class="article-date">
+  <time datetime="2019-04-16T02:52:00.687Z" itemprop="datePublished">2019-04-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>数组是一种非常有用的数据结构，因为其占用的内存是连续分配的。由于内存连续，CPU能把正在使用的数据缓存更久的时间。而且内存连续很容易计算索引，可以快速迭代数组里的所有元素。数组的类型信息可以提供每次访问一个元素时需要在内存中移动的距离。既然数组的每个元素类型相同，又是连续分配，就可以以固定速度索引数组中的任意数据，速度非常快。</p>
+<p>注意：在 Go 中数组是值类型而不是引用类型。这意味着当数组变量被赋值时，将会获得原数组的拷贝。新数组中元素的改变不会影响原数组中元素的值。</p>
+<h5 id="声明和赋值方式"><a href="#声明和赋值方式" class="headerlink" title="声明和赋值方式"></a>声明和赋值方式</h5><h6 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array[<span class="number">5</span>] <span class="keyword">int</span></span><br></pre></td></tr></table></figure>
+<h6 id="使用具体值初始化"><a href="#使用具体值初始化" class="headerlink" title="使用具体值初始化"></a>使用具体值初始化</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>] <span class="keyword">int</span> &#123;&#125; <span class="comment">//[0,0,0,0,0]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>] <span class="keyword">int</span> &#123;<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>,<span class="number">40</span>,<span class="number">50</span>&#125; <span class="comment">//[10,20,30,40,50]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明一个整型数组</span></span><br><span class="line"><span class="comment">// 用具体值初始化每个元素</span></span><br><span class="line"><span class="comment">// 容量由初始化值的数量决定</span></span><br><span class="line">array := [...]<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明一个有5个元素的数组</span></span><br><span class="line"><span class="comment">// 用具体值初始化索引为1和2的元素</span></span><br><span class="line"><span class="comment">// 其余元素保持零值</span></span><br><span class="line">array := [<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>: <span class="number">10</span>, <span class="number">2</span>: <span class="number">20</span>&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="循环一个数组"><a href="#循环一个数组" class="headerlink" title="循环一个数组"></a>循环一个数组</h5><p>注意数组是基本类型，这意味着循环数组并不像js中数组也是一个对象，直接调用array.length进行循环。</p>
+<h6 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">0</span>:<span class="number">1</span>, <span class="number">1</span>:<span class="number">1</span>&#125;</span><br><span class="line">array[<span class="number">0</span>]=<span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++&#123;</span><br><span class="line">    fmt.Printf(<span class="string">"%d"</span>,array[i])</span><br><span class="line">&#125;</span><br><span class="line">fmt.Printf(<span class="string">"\n"</span>)</span><br></pre></td></tr></table></figure>
+<h6 id="range循环"><a href="#range循环" class="headerlink" title="range循环"></a>range循环</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">0</span>:<span class="number">1</span>, <span class="number">1</span>:<span class="number">1</span>&#125;</span><br><span class="line"><span class="comment">//array为[1,1,0,0,0]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> index,value:= <span class="keyword">range</span> array&#123;</span><br><span class="line">    fmt.Printf(<span class="string">"index:%d,value:%d\n"</span>,index,value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="指针数组"><a href="#指针数组" class="headerlink" title="指针数组"></a>指针数组</h5><p>指针数组和普通数组基本一样,注意，赋值前一定要先给指针赋值一个地址。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>]*<span class="keyword">int</span>&#123;<span class="number">0</span>: <span class="built_in">new</span>(<span class="keyword">int</span>), <span class="number">1</span>: <span class="built_in">new</span>(<span class="keyword">int</span>)&#125;</span><br><span class="line">*array[<span class="number">0</span>]=<span class="number">1</span> <span class="comment">// 赋值成功</span></span><br><span class="line">*array[<span class="number">2</span>]=<span class="number">1</span> <span class="comment">// 报错，因为*array[2]指向一个nil指针</span></span><br><span class="line">fmt.Printf(<span class="string">"%d"</span>,*array[<span class="number">0</span>]) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>]*<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">array[<span class="number">0</span>]=<span class="built_in">new</span>(<span class="keyword">int</span>) <span class="comment">// 先给指针一个地址</span></span><br><span class="line">*array[<span class="number">0</span>]=<span class="number">1</span>       <span class="comment">// 然后才能赋值</span></span><br><span class="line">fmt.Printf(<span class="string">"%d"</span>,*array[<span class="number">0</span>]) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<h5 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h5><p>多维数组的写法：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>][<span class="number">3</span>]<span class="keyword">int</span>&#123;<span class="number">0</span>:&#123;<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>&#125;, <span class="number">1</span>:&#123;<span class="number">44</span>,<span class="number">55</span>,<span class="number">66</span>&#125;&#125;</span><br><span class="line"><span class="comment">/*array为[</span></span><br><span class="line"><span class="comment">    [11,22,33],</span></span><br><span class="line"><span class="comment">    [44,55,66],</span></span><br><span class="line"><span class="comment">    [0,0,0],</span></span><br><span class="line"><span class="comment">    [0,0,0],</span></span><br><span class="line"><span class="comment">    [0,0,0],</span></span><br><span class="line"><span class="comment">]*/</span></span><br><span class="line"><span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++&#123;</span><br><span class="line">    <span class="keyword">for</span> j:=<span class="number">0</span>;j&lt;<span class="number">3</span>;j++&#123;</span><br><span class="line">        fmt.Printf(<span class="string">"[%d][%d]=%d\n"</span>,i,j,array[i][j])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">fmt.Printf(<span class="string">"\n"</span>)</span><br><span class="line"><span class="comment">//或者使用range循环</span></span><br><span class="line"><span class="keyword">for</span> i,v1:=<span class="keyword">range</span> array&#123;</span><br><span class="line">    <span class="keyword">for</span> j,v2:= <span class="keyword">range</span> v1&#123;</span><br><span class="line">        fmt.Printf(<span class="string">"[%d][%d]=%d\n"</span>,i,j,v2)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="关于函数中传递一个数组的思考"><a href="#关于函数中传递一个数组的思考" class="headerlink" title="关于函数中传递一个数组的思考"></a>关于函数中传递一个数组的思考</h5><p>函数中如果一参数是数组的话会有什么问题？</p>
+<p>在go语言中，数组是基本类型，不是引用类型，所以传递的都是值。</p>
+<p>想象一下一个动态数组比如切片作为一个形参传进一个函数，那么这个函数中切片形参占用只是一个指针，大概几个字节。</p>
+<p>那如果传进一个很大的数组呢？</p>
+<p>那么这个数组有多大，函数的形参就必须有多大，在一些极端的情况下就会有性能问题。</p>
+<p>解决办法就是传入数组的指针。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/16/Go数组/Go数组/" data-id="cjuj6ztsx000768tot9q1b40h" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/16/Go镶嵌类型与组合/Go镶嵌类型/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/16/Go切片/Go切片/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/16/Go语言初探-包管理/Go语言初探-包管理/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/Go镶嵌类型与组合/Go镶嵌类型/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/Go数组/Go数组/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/Go切片/Go切片/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/Go接口与多态/Go接口与多态/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

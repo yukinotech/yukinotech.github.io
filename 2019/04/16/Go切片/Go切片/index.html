@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="切片切片的基本原理切片可以理解为动态数组的实现，切片是一个对象，有自己的方法和属性，切片是一个引用类型。 切片需要3个字段，这3个字段分别是：指向底层数组的指针切片访问的元素的个数（即长度）length切片允许增长到的元素个数（即容量）cap 切片的声明和赋值使用内置的make()函数123// 创建一个字符串切片// 其长度和容量都是5个元素slice := make([]string, 5)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2019/04/16/Go切片/Go切片/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="切片切片的基本原理切片可以理解为动态数组的实现，切片是一个对象，有自己的方法和属性，切片是一个引用类型。 切片需要3个字段，这3个字段分别是：指向底层数组的指针切片访问的元素的个数（即长度）length切片允许增长到的元素个数（即容量）cap 切片的声明和赋值使用内置的make()函数123// 创建一个字符串切片// 其长度和容量都是5个元素slice := make([]string, 5)">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/04/16/Go切片/Go切片/nil切片.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/04/16/Go切片/Go切片/空切片.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/04/16/Go切片/Go切片/slice切片.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/04/16/Go切片/Go切片/append案例一.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/04/16/Go切片/Go切片/append案例二.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/04/16/Go切片/Go切片/append产生新底层数组.jpg">
+<meta property="og:updated_time" content="2019-04-12T05:53:39.168Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="切片切片的基本原理切片可以理解为动态数组的实现，切片是一个对象，有自己的方法和属性，切片是一个引用类型。 切片需要3个字段，这3个字段分别是：指向底层数组的指针切片访问的元素的个数（即长度）length切片允许增长到的元素个数（即容量）cap 切片的声明和赋值使用内置的make()函数123// 创建一个字符串切片// 其长度和容量都是5个元素slice := make([]string, 5)">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/16/Go切片/Go切片/nil切片.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Go切片/Go切片" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/16/Go切片/Go切片/" class="article-date">
+  <time datetime="2019-04-16T02:52:00.485Z" itemprop="datePublished">2019-04-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h4><h5 id="切片的基本原理"><a href="#切片的基本原理" class="headerlink" title="切片的基本原理"></a>切片的基本原理</h5><p>切片可以理解为动态数组的实现，切片是一个对象，有自己的方法和属性，切片是一个引用类型。</p>
+<p>切片需要3个字段，这3个字段分别是：<br>指向底层数组的指针<br>切片访问的元素的个数（即长度）length<br>切片允许增长到的元素个数（即容量）cap</p>
+<h5 id="切片的声明和赋值"><a href="#切片的声明和赋值" class="headerlink" title="切片的声明和赋值"></a>切片的声明和赋值</h5><h6 id="使用内置的make-函数"><a href="#使用内置的make-函数" class="headerlink" title="使用内置的make()函数"></a>使用内置的make()函数</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个字符串切片</span></span><br><span class="line"><span class="comment">// 其长度和容量都是5个元素</span></span><br><span class="line">slice := <span class="built_in">make</span>([]<span class="keyword">string</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个整型切片</span></span><br><span class="line"><span class="comment">// 其长度为3个元素，容量为5个元素</span></span><br><span class="line">slice := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">3</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<h6 id="切片字面量"><a href="#切片字面量" class="headerlink" title="切片字面量"></a>切片字面量</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建字符串切片</span></span><br><span class="line"><span class="comment">// 其长度和容量都是5个元素</span></span><br><span class="line">slice := []<span class="keyword">string</span>&#123;<span class="string">"Red"</span>, <span class="string">"Blue"</span>, <span class="string">"Green"</span>, <span class="string">"Yellow"</span>, <span class="string">"Pink"</span>&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个整型切片</span></span><br><span class="line"><span class="comment">// 其长度和容量都是3个元素</span></span><br><span class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用空字符串初始化第100 个元素</span></span><br><span class="line"><span class="comment">// 其长度和容量都是100个元素</span></span><br><span class="line">slice := []<span class="keyword">string</span>&#123;<span class="number">99</span>: <span class="string">""</span>&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="和数组的区别"><a href="#和数组的区别" class="headerlink" title="和数组的区别"></a>和数组的区别</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">slice := []<span class="keyword">string</span>&#123;<span class="number">99</span>: <span class="string">""</span>&#125;</span><br><span class="line"><span class="comment">//[]里没有数字是切片</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">array := [...]<span class="keyword">string</span>&#123;<span class="number">99</span>: <span class="string">""</span>&#125;</span><br><span class="line"><span class="comment">//[]里有数字或者...是数组</span></span><br></pre></td></tr></table></figure>
+<h5 id="nil切片"><a href="#nil切片" class="headerlink" title="nil切片"></a>nil切片</h5><p>声明一个nil切片<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建nil整型切片</span></span><br><span class="line"><span class="keyword">var</span> slice []<span class="keyword">int</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="./nil切片.jpg" alt="nil切片"></p>
+<p>nil切片的作用：<br>在需要描述一个不存在的切片时，nil切片会很好用。例如，函数要求返回一个切片但是发生异常的时候</p>
+<h5 id="空切片"><a href="#空切片" class="headerlink" title="空切片"></a>空切片</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用make创建空的整型切片</span></span><br><span class="line">slice := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">0</span>)</span><br><span class="line"><span class="comment">// 使用切片字面量创建空的整型切片</span></span><br><span class="line">slice := []<span class="keyword">int</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="./空切片.jpg" alt="空切片"></p>
+<p>空切片的作用：<br>想表示空集合时空切片很有用，例如，数据库查询返回0个查询结果时</p>
+<h5 id="使用切片"><a href="#使用切片" class="headerlink" title="使用切片"></a>使用切片</h5><h6 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h6><p>切片的赋值：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">// 创建一个整型切片</span></span><br><span class="line">	<span class="comment">// 其容量和长度都是5个元素</span></span><br><span class="line">	slice := []<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;</span><br><span class="line">	<span class="comment">// 改变索引为1的元素的值</span></span><br><span class="line">	slice[<span class="number">1</span>] = <span class="number">25</span></span><br><span class="line">	fmt.Println(slice)</span><br><span class="line">	<span class="comment">// [10 25 30 40 50]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>从赋值可以看出，实际上切片就是动态数组</p>
+<h6 id="通过现有切片创建新切片"><a href="#通过现有切片创建新切片" class="headerlink" title="通过现有切片创建新切片"></a>通过现有切片创建新切片</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个整型切片</span></span><br><span class="line"><span class="comment">// 其容量和长度都是5个元素</span></span><br><span class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;</span><br><span class="line"><span class="comment">// 创建一个新切片</span></span><br><span class="line"><span class="comment">// 其长度为2个元素，容量为4个元素</span></span><br><span class="line">newSlice := slice[<span class="number">1</span>:<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">fmt.Println(slice)</span><br><span class="line"><span class="comment">// [10 20 30 40 50]</span></span><br><span class="line">fmt.Println(newSlice)</span><br><span class="line"><span class="comment">// [20 30]</span></span><br></pre></td></tr></table></figure>
+<p>slice的长度为5<br>这里<code>slice[1:3]</code>生成的newSlice<br>长度：<code>3-1=2</code><br>容量：<code>5-1=4</code></p>
+<p>即slice的长度为k<br>这里<code>slice[i:j]</code>生成的newSlice<br>长度：<code>k-i</code><br>容量：<code>k-j</code></p>
+<p>注意：现在两个切片共享同一个底层数组。如果一个切片修改了该底层数组的共享部分，另一个切片也能感知到</p>
+<p>也就是说<code>slice[i:j]</code>切片是浅复制</p>
+<p><img src="./slice切片.jpg" alt="slice切片"></p>
+<h6 id="append方法添加新元素"><a href="#append方法添加新元素" class="headerlink" title="append方法添加新元素"></a>append方法添加新元素</h6><p>案例一：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个整型切片</span></span><br><span class="line"><span class="comment">// 其长度和容量都是4个元素</span></span><br><span class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>&#125;</span><br><span class="line"><span class="comment">// 向切片追加一个新元素</span></span><br><span class="line"><span class="comment">// 将新元素赋值为50</span></span><br><span class="line">newSlice := <span class="built_in">append</span>(slice, <span class="number">50</span>)</span><br><span class="line"><span class="comment">// newSlice的length为5，cap为8</span></span><br><span class="line">fmt.Println(newSlice)</span><br><span class="line"><span class="comment">// [10 20 30 40 50]</span></span><br></pre></td></tr></table></figure></p>
+<p>这说明内置的append方法实现了动态数组的容量变化，切片长度超出容量上届时自动扩容</p>
+<p><img src="./append案例一.jpg" alt="append案例一"></p>
+<p>案例二：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个整型切片</span></span><br><span class="line"><span class="comment">// 其长度和容量都是5个元素</span></span><br><span class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;</span><br><span class="line"><span class="comment">// 创建一个新切片</span></span><br><span class="line"><span class="comment">// 其长度为2个元素，容量为4个元素</span></span><br><span class="line">newSlice := slice[<span class="number">1</span>:<span class="number">3</span>]</span><br><span class="line"><span class="comment">// 使用原有的容量来分配一个新元素</span></span><br><span class="line"><span class="comment">// 将新元素赋值为60</span></span><br><span class="line">newSlice = <span class="built_in">append</span>(newSlice, <span class="number">60</span>)</span><br><span class="line">fmt.Println(slice)</span><br><span class="line"><span class="comment">// [10 20 30 60 50]</span></span><br><span class="line">fmt.Println(newSlice)</span><br><span class="line"><span class="comment">// [20 30 60]</span></span><br></pre></td></tr></table></figure></p>
+<p>案例二中append使得newSlice增加了长度，但是应该注意slice[i:j]是浅复制，而且实际上是一个指向同一个数组的指针，因此直接将原切片的值修改成为60</p>
+<p>示意图：<br><img src="./append案例二.jpg" alt></p>
+<h5 id="第三个索引"><a href="#第三个索引" class="headerlink" title="第三个索引"></a>第三个索引</h5><p>第三个索引可以确定容量<br>对于<code>slice[i:j:k]</code> 或<code>[2:3:4]</code><br>长度: <code>j – i</code>或<code>3 - 2 = 1</code><br>容量: <code>k – i</code>或<code>4 - 2 = 2</code></p>
+<p>设置第三个索引和第二个索引一样，可以使得新切片的长度和容量相等。</p>
+<p>这样的好处是什么呢？</p>
+<p>当切片的长度和容量相等时，再调用append就会扩容。但是扩容后的新切片就不会和原数组共用一个底层数组了。<br>这时候修改新切片的值就不会干扰原切片的值。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建字符串切片</span></span><br><span class="line"><span class="comment">// 其长度和容量都是5个元素</span></span><br><span class="line">source := []<span class="keyword">string</span>&#123;<span class="string">"Apple"</span>, <span class="string">"Orange"</span>, <span class="string">"Plum"</span>, <span class="string">"Banana"</span>, <span class="string">"Grape"</span>&#125;</span><br><span class="line"><span class="comment">// 对第三个元素做切片，并限制容量</span></span><br><span class="line"><span class="comment">// 其长度和容量都是1个元素</span></span><br><span class="line">slice := source[<span class="number">2</span>:<span class="number">3</span>:<span class="number">3</span>]</span><br><span class="line"><span class="comment">// 向slice追加新字符串</span></span><br><span class="line">slice = <span class="built_in">append</span>(slice, <span class="string">"Kiwi"</span>)</span><br><span class="line">slice[<span class="number">0</span>]=<span class="string">"newItem"</span></span><br><span class="line">fmt.Println(source)</span><br><span class="line"><span class="comment">// [Apple Orange Plum Banana Grape]</span></span><br><span class="line">fmt.Println(slice)</span><br><span class="line"><span class="comment">// [newItem Kiwi]</span></span><br></pre></td></tr></table></figure></p>
+<p>示意图：<br><img src="./append产生新底层数组.jpg" alt></p>
+<h5 id="append合并多个切片"><a href="#append合并多个切片" class="headerlink" title="append合并多个切片"></a>append合并多个切片</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建两个切片，并分别用两个整数进行初始化</span></span><br><span class="line">s1 := []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>&#125;</span><br><span class="line">s2 := []<span class="keyword">int</span>&#123;<span class="number">3</span>, <span class="number">4</span>&#125;</span><br><span class="line"><span class="comment">// 将两个切片追加在一起，并显示结果</span></span><br><span class="line">fmt.Println(<span class="built_in">append</span>(s1,s2...))</span><br><span class="line"><span class="comment">// append连接2个切片时只能一次连接2个</span></span><br></pre></td></tr></table></figure>
+<h5 id="遍历切片"><a href="#遍历切片" class="headerlink" title="遍历切片"></a>遍历切片</h5><h6 id="使用range遍历"><a href="#使用range遍历" class="headerlink" title="使用range遍历"></a>使用range遍历</h6><p>可以看出遍历切片方式与数组相同<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个整型切片</span></span><br><span class="line"><span class="comment">// 其长度和容量都是4个元素</span></span><br><span class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>&#125;</span><br><span class="line"><span class="comment">// 迭代每一个元素，并显示其值</span></span><br><span class="line"><span class="keyword">for</span> index, value := <span class="keyword">range</span> slice &#123;</span><br><span class="line">　fmt.Printf(<span class="string">"Index: %d　Value: %d\n"</span>, index, value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h6 id="for遍历-len-cap"><a href="#for遍历-len-cap" class="headerlink" title="for遍历,len(),cap()"></a>for遍历,len(),cap()</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>&#125;</span><br><span class="line"><span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="built_in">len</span>(slice);i++ &#123;</span><br><span class="line">	fmt.Println(<span class="string">"value:"</span>,slice[i])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>len()返回切片长度 length<br>cap()返回切片容量 cap</p>
+<h5 id="函数中传入切片"><a href="#函数中传入切片" class="headerlink" title="函数中传入切片"></a>函数中传入切片</h5><p>对比之前的数组，切片的优势不言而喻。</p>
+<p>因为切片本身就是引用类型，在64位架构的机器上，一个切片需要24字节的内存：指针字段需要8 字节，长度和容量字段分别需要8字节。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/16/Go切片/Go切片/" data-id="cjuj6ztsq000368toa0t8qsxf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/16/Go数组/Go数组/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/16/Go接口与多态/Go接口与多态/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/16/Go语言初探-包管理/Go语言初探-包管理/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/Go镶嵌类型与组合/Go镶嵌类型/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/Go数组/Go数组/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/Go切片/Go切片/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/Go接口与多态/Go接口与多态/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

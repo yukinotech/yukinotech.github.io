@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="golang语言初探-包管理 Goroot path：C:\Go\bin Gopath :C:\Users\zyf\go go get命令的包全部都保存在Gopath中 12345678package mainimport (    &quot;hello2&quot;)func main()&amp;#123;    //注意这里变量名是hello    hello.Say()&amp;#125; 实际上导入的是目录C:\User">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2019/04/16/Go语言初探-包管理/Go语言初探-包管理/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="golang语言初探-包管理 Goroot path：C:\Go\bin Gopath :C:\Users\zyf\go go get命令的包全部都保存在Gopath中 12345678package mainimport (    &quot;hello2&quot;)func main()&amp;#123;    //注意这里变量名是hello    hello.Say()&amp;#125; 实际上导入的是目录C:\User">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-12T06:59:50.797Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="golang语言初探-包管理 Goroot path：C:\Go\bin Gopath :C:\Users\zyf\go go get命令的包全部都保存在Gopath中 12345678package mainimport (    &quot;hello2&quot;)func main()&amp;#123;    //注意这里变量名是hello    hello.Say()&amp;#125; 实际上导入的是目录C:\User">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Go语言初探-包管理/Go语言初探-包管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/16/Go语言初探-包管理/Go语言初探-包管理/" class="article-date">
+  <time datetime="2019-04-16T02:52:00.776Z" itemprop="datePublished">2019-04-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>golang语言初探-包管理</p>
+<p>Goroot path：<code>C:\Go\bin</code></p>
+<p>Gopath :<code>C:\Users\zyf\go</code></p>
+<p><code>go get</code>命令的包全部都保存在<code>Gopath</code>中</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"hello2"</span></span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//注意这里变量名是hello</span></span><br><span class="line">    hello.Say()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实际上导入的是目录<br><code>C:\Users\zyf\go\src</code>下的<code>hello2</code>文件夹</p>
+<p>导入的包的默认变量名是什么呢？</p>
+<p><code>C:\Users\zyf\go\src\hello2</code>里只用一个文件<code>main.go</code><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> hello</span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Say</span><span class="params">()</span></span>&#123;</span><br><span class="line">    fmt.Println(<span class="string">"Hello, World!"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里的package为hello，表示这个文件为hello包的内容。<br>Say方法大写，暴露在外面。所以推荐把package名和文件夹名命名一致，这样方便引用。即导入的文件夹名就是package的名字</p>
+<p>golang包管理如果是<code>go get</code>的话也是先下载在gopath下，然后在本地读取比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">package main</span><br><span class="line">import (</span><br><span class="line">    &quot;hello2&quot;</span><br><span class="line">    FirstGoPackage &quot;github.com/yukinotech/FirstGoPackage&quot;</span><br><span class="line">)</span><br><span class="line">func main()&#123;</span><br><span class="line">    hello.Say()</span><br><span class="line">    FirstGoPackage.Say(&quot;good bye&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/16/Go语言初探-包管理/Go语言初探-包管理/" data-id="cjuj6ztsz000968to7sw5q1b3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/04/16/Go镶嵌类型与组合/Go镶嵌类型/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/16/Go语言初探-包管理/Go语言初探-包管理/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/Go镶嵌类型与组合/Go镶嵌类型/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/Go数组/Go数组/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/Go切片/Go切片/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/Go接口与多态/Go接口与多态/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

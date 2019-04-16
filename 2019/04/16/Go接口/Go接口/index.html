@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Go接口接口的含义从面向对象的语言的角度来说，就是约束类(对象)的属性和方法。 比如java或者typescript go中的接口的使用和方法集看看接口的使用方法 1234567891011121314151617181920212223242526272829package mainimport (    &quot;fmt&quot;)type printInfor interface &amp;#123;	printI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2019/04/16/Go接口/Go接口/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Go接口接口的含义从面向对象的语言的角度来说，就是约束类(对象)的属性和方法。 比如java或者typescript go中的接口的使用和方法集看看接口的使用方法 1234567891011121314151617181920212223242526272829package mainimport (    &quot;fmt&quot;)type printInfor interface &amp;#123;	printI">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/04/16/Go接口/Go接口/go方法集.jpg">
+<meta property="og:updated_time" content="2019-04-12T08:43:59.933Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="Go接口接口的含义从面向对象的语言的角度来说，就是约束类(对象)的属性和方法。 比如java或者typescript go中的接口的使用和方法集看看接口的使用方法 1234567891011121314151617181920212223242526272829package mainimport (    &quot;fmt&quot;)type printInfor interface &amp;#123;	printI">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/16/Go接口/Go接口/go方法集.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Go接口/Go接口" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/16/Go接口/Go接口/" class="article-date">
+  <time datetime="2019-04-16T02:52:00.056Z" itemprop="datePublished">2019-04-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="Go接口"><a href="#Go接口" class="headerlink" title="Go接口"></a>Go接口</h4><h5 id="接口的含义"><a href="#接口的含义" class="headerlink" title="接口的含义"></a>接口的含义</h5><p>从面向对象的语言的角度来说，就是约束类(对象)的属性和方法。</p>
+<p>比如java或者typescript</p>
+<h5 id="go中的接口的使用和方法集"><a href="#go中的接口的使用和方法集" class="headerlink" title="go中的接口的使用和方法集"></a>go中的接口的使用和方法集</h5><p>看看接口的使用方法</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> printInfor <span class="keyword">interface</span> &#123;</span><br><span class="line">	printInfo()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> user <span class="keyword">struct</span> &#123;</span><br><span class="line">    name <span class="keyword">string</span></span><br><span class="line">    email <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *user)</span> <span class="title">printInfo</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">"name:"</span>, u.name, <span class="string">" email:"</span>,u.email)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    u := user&#123;<span class="string">"Bill"</span>, <span class="string">"bill@email.com"</span>&#125;</span><br><span class="line">    sendInfo(&amp;u)<span class="comment">//这里只能传递指针！！</span></span><br><span class="line">    <span class="comment">//写成sendInfo(u)行不行？</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sendInfo</span><span class="params">(p printInfor)</span></span> &#123;</span><br><span class="line">    p.printInfo()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Q:这里写成sendInfo(u)行不行?<br>A:不行</p>
+<p>Q:为什么?<br>A:和go的方法集有关</p>
+<h5 id="go的方法集"><a href="#go的方法集" class="headerlink" title="go的方法集"></a>go的方法集</h5><p>示意图：<br><img src="./go方法集.jpg" alt><br>指针接收者来实现一个接口，那么<strong>只有指向那个类型的指针才能够实现对应的接口</strong></p>
+<p>如果使用值接收者来实现一个接口，那么那个类型的值和指针都能够实现对应的接口</p>
+<p>回到这段代码上，因为接口包含一个<code>printInfo</code>方法。而<code>printInfo</code>方法接受指针，那么<strong>只有指向那个类型的指针才能够实现对应的接口</strong>，即代码中的<code>&amp;u</code></p>
+<h5 id="更加深层次的考虑为什么方法集是这样子的设计的？"><a href="#更加深层次的考虑为什么方法集是这样子的设计的？" class="headerlink" title="更加深层次的考虑为什么方法集是这样子的设计的？"></a>更加深层次的考虑为什么方法集是这样子的设计的？</h5><p>因为<strong>编译器并不是总能自动获得一个值的地址</strong></p>
+<p>回到刚才那段程序如果写成<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sendInfo(u)</span><br></pre></td></tr></table></figure></p>
+<p>而在<code>sendInfo</code>中使用<code>p.printInfo()</code>时其实是在调用<code>(*p).printInfo()</code>。根据<strong>编译器并不是总能自动获得一个值的地址</strong>，<code>p</code>可能取不到地址，因此会出现错误。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/16/Go接口/Go接口/" data-id="cjuj6ztsu000568tow2vg2pie" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/16/Go接口与多态/Go接口与多态/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/16/Go函数参数传递和引用类型/test2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/16/Go语言初探-包管理/Go语言初探-包管理/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/Go镶嵌类型与组合/Go镶嵌类型/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/Go数组/Go数组/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/Go切片/Go切片/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/16/Go接口与多态/Go接口与多态/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
