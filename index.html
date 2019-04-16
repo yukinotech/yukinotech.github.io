@@ -1,325 +1,122 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="John Doe"><meta name="renderer" content="webkit"><meta name="copyright" content="John Doe"><meta name="keywords" content="Hexo"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Mr.Long's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
 
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="default">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-Go语言初探-包管理/Go语言初探-包管理" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/16/Go语言初探-包管理/Go语言初探-包管理/" class="article-date">
-  <time datetime="2019-04-16T02:52:00.776Z" itemprop="datePublished">2019-04-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>golang语言初探-包管理</p>
-<p>Goroot path：<code>C:\Go\bin</code></p>
-<p>Gopath :<code>C:\Users\zyf\go</code></p>
-<p><code>go get</code>命令的包全部都保存在<code>Gopath</code>中</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"hello2"</span></span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//注意这里变量名是hello</span></span><br><span class="line">    hello.Say()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>实际上导入的是目录<br><code>C:\Users\zyf\go\src</code>下的<code>hello2</code>文件夹</p>
-<p>导入的包的默认变量名是什么呢？</p>
-<p><code>C:\Users\zyf\go\src\hello2</code>里只用一个文件<code>main.go</code><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> hello</span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Say</span><span class="params">()</span></span>&#123;</span><br><span class="line">    fmt.Println(<span class="string">"Hello, World!"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里的package为hello，表示这个文件为hello包的内容。<br>Say方法大写，暴露在外面。所以推荐把package名和文件夹名命名一致，这样方便引用。即导入的文件夹名就是package的名字</p>
-<p>golang包管理如果是<code>go get</code>的话也是先下载在gopath下，然后在本地读取比如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">package main</span><br><span class="line">import (</span><br><span class="line">    &quot;hello2&quot;</span><br><span class="line">    FirstGoPackage &quot;github.com/yukinotech/FirstGoPackage&quot;</span><br><span class="line">)</span><br><span class="line">func main()&#123;</span><br><span class="line">    hello.Say()</span><br><span class="line">    FirstGoPackage.Say(&quot;good bye&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/16/Go语言初探-包管理/Go语言初探-包管理/" data-id="cjuj6ztsz000968to7sw5q1b3" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
 
 
-  
-    <article id="post-Go镶嵌类型与组合/Go镶嵌类型" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/16/Go镶嵌类型与组合/Go镶嵌类型/" class="article-date">
-  <time datetime="2019-04-16T02:52:00.747Z" itemprop="datePublished">2019-04-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="Go镶嵌类型"><a href="#Go镶嵌类型" class="headerlink" title="Go镶嵌类型"></a>Go镶嵌类型</h4><h5 id="Go镶嵌"><a href="#Go镶嵌" class="headerlink" title="Go镶嵌"></a>Go镶嵌</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> user <span class="keyword">struct</span> &#123;</span><br><span class="line">    name  <span class="keyword">string</span></span><br><span class="line">    email <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *user)</span> <span class="title">notify</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Printf(<span class="string">"Sending user email to %s&lt;%s&gt;\n"</span>,</span><br><span class="line">    u.name,</span><br><span class="line">    u.email)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> admin <span class="keyword">struct</span> &#123;</span><br><span class="line">    user</span><br><span class="line">    level <span class="keyword">string</span></span><br><span class="line">    name  <span class="keyword">string</span></span><br><span class="line">    email <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ad := admin&#123;</span><br><span class="line">        user: user&#123;</span><br><span class="line">            name:  <span class="string">"common user"</span>,</span><br><span class="line">            email: <span class="string">"common user@email.com"</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        level: <span class="string">"super"</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    ad.user.notify()</span><br><span class="line">    <span class="comment">//Sending user email to common user&lt;common user@email.com&gt;</span></span><br><span class="line"></span><br><span class="line">    ad.notify()</span><br><span class="line">    <span class="comment">//Sending user email to common user&lt;common user@email.com&gt;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/16/Go镶嵌类型与组合/Go镶嵌类型/" data-id="cjuj6ztt0000a68to86hctbk8" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Go数组/Go数组" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/16/Go数组/Go数组/" class="article-date">
-  <time datetime="2019-04-16T02:52:00.687Z" itemprop="datePublished">2019-04-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>数组是一种非常有用的数据结构，因为其占用的内存是连续分配的。由于内存连续，CPU能把正在使用的数据缓存更久的时间。而且内存连续很容易计算索引，可以快速迭代数组里的所有元素。数组的类型信息可以提供每次访问一个元素时需要在内存中移动的距离。既然数组的每个元素类型相同，又是连续分配，就可以以固定速度索引数组中的任意数据，速度非常快。</p>
-<p>注意：在 Go 中数组是值类型而不是引用类型。这意味着当数组变量被赋值时，将会获得原数组的拷贝。新数组中元素的改变不会影响原数组中元素的值。</p>
-<h5 id="声明和赋值方式"><a href="#声明和赋值方式" class="headerlink" title="声明和赋值方式"></a>声明和赋值方式</h5><h6 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array[<span class="number">5</span>] <span class="keyword">int</span></span><br></pre></td></tr></table></figure>
-<h6 id="使用具体值初始化"><a href="#使用具体值初始化" class="headerlink" title="使用具体值初始化"></a>使用具体值初始化</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>] <span class="keyword">int</span> &#123;&#125; <span class="comment">//[0,0,0,0,0]</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>] <span class="keyword">int</span> &#123;<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>,<span class="number">40</span>,<span class="number">50</span>&#125; <span class="comment">//[10,20,30,40,50]</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明一个整型数组</span></span><br><span class="line"><span class="comment">// 用具体值初始化每个元素</span></span><br><span class="line"><span class="comment">// 容量由初始化值的数量决定</span></span><br><span class="line">array := [...]<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明一个有5个元素的数组</span></span><br><span class="line"><span class="comment">// 用具体值初始化索引为1和2的元素</span></span><br><span class="line"><span class="comment">// 其余元素保持零值</span></span><br><span class="line">array := [<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>: <span class="number">10</span>, <span class="number">2</span>: <span class="number">20</span>&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="循环一个数组"><a href="#循环一个数组" class="headerlink" title="循环一个数组"></a>循环一个数组</h5><p>注意数组是基本类型，这意味着循环数组并不像js中数组也是一个对象，直接调用array.length进行循环。</p>
-<h6 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">0</span>:<span class="number">1</span>, <span class="number">1</span>:<span class="number">1</span>&#125;</span><br><span class="line">array[<span class="number">0</span>]=<span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++&#123;</span><br><span class="line">    fmt.Printf(<span class="string">"%d"</span>,array[i])</span><br><span class="line">&#125;</span><br><span class="line">fmt.Printf(<span class="string">"\n"</span>)</span><br></pre></td></tr></table></figure>
-<h6 id="range循环"><a href="#range循环" class="headerlink" title="range循环"></a>range循环</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">0</span>:<span class="number">1</span>, <span class="number">1</span>:<span class="number">1</span>&#125;</span><br><span class="line"><span class="comment">//array为[1,1,0,0,0]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> index,value:= <span class="keyword">range</span> array&#123;</span><br><span class="line">    fmt.Printf(<span class="string">"index:%d,value:%d\n"</span>,index,value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="指针数组"><a href="#指针数组" class="headerlink" title="指针数组"></a>指针数组</h5><p>指针数组和普通数组基本一样,注意，赋值前一定要先给指针赋值一个地址。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>]*<span class="keyword">int</span>&#123;<span class="number">0</span>: <span class="built_in">new</span>(<span class="keyword">int</span>), <span class="number">1</span>: <span class="built_in">new</span>(<span class="keyword">int</span>)&#125;</span><br><span class="line">*array[<span class="number">0</span>]=<span class="number">1</span> <span class="comment">// 赋值成功</span></span><br><span class="line">*array[<span class="number">2</span>]=<span class="number">1</span> <span class="comment">// 报错，因为*array[2]指向一个nil指针</span></span><br><span class="line">fmt.Printf(<span class="string">"%d"</span>,*array[<span class="number">0</span>]) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>]*<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">array[<span class="number">0</span>]=<span class="built_in">new</span>(<span class="keyword">int</span>) <span class="comment">// 先给指针一个地址</span></span><br><span class="line">*array[<span class="number">0</span>]=<span class="number">1</span>       <span class="comment">// 然后才能赋值</span></span><br><span class="line">fmt.Printf(<span class="string">"%d"</span>,*array[<span class="number">0</span>]) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-<h5 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h5><p>多维数组的写法：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">array :=[<span class="number">5</span>][<span class="number">3</span>]<span class="keyword">int</span>&#123;<span class="number">0</span>:&#123;<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>&#125;, <span class="number">1</span>:&#123;<span class="number">44</span>,<span class="number">55</span>,<span class="number">66</span>&#125;&#125;</span><br><span class="line"><span class="comment">/*array为[</span></span><br><span class="line"><span class="comment">    [11,22,33],</span></span><br><span class="line"><span class="comment">    [44,55,66],</span></span><br><span class="line"><span class="comment">    [0,0,0],</span></span><br><span class="line"><span class="comment">    [0,0,0],</span></span><br><span class="line"><span class="comment">    [0,0,0],</span></span><br><span class="line"><span class="comment">]*/</span></span><br><span class="line"><span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++&#123;</span><br><span class="line">    <span class="keyword">for</span> j:=<span class="number">0</span>;j&lt;<span class="number">3</span>;j++&#123;</span><br><span class="line">        fmt.Printf(<span class="string">"[%d][%d]=%d\n"</span>,i,j,array[i][j])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">fmt.Printf(<span class="string">"\n"</span>)</span><br><span class="line"><span class="comment">//或者使用range循环</span></span><br><span class="line"><span class="keyword">for</span> i,v1:=<span class="keyword">range</span> array&#123;</span><br><span class="line">    <span class="keyword">for</span> j,v2:= <span class="keyword">range</span> v1&#123;</span><br><span class="line">        fmt.Printf(<span class="string">"[%d][%d]=%d\n"</span>,i,j,v2)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="关于函数中传递一个数组的思考"><a href="#关于函数中传递一个数组的思考" class="headerlink" title="关于函数中传递一个数组的思考"></a>关于函数中传递一个数组的思考</h5><p>函数中如果一参数是数组的话会有什么问题？</p>
-<p>在go语言中，数组是基本类型，不是引用类型，所以传递的都是值。</p>
-<p>想象一下一个动态数组比如切片作为一个形参传进一个函数，那么这个函数中切片形参占用只是一个指针，大概几个字节。</p>
-<p>那如果传进一个很大的数组呢？</p>
-<p>那么这个数组有多大，函数的形参就必须有多大，在一些极端的情况下就会有性能问题。</p>
-<p>解决办法就是传入数组的指针。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/16/Go数组/Go数组/" data-id="cjuj6ztsx000768tot9q1b40h" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Go切片/Go切片" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/16/Go切片/Go切片/" class="article-date">
-  <time datetime="2019-04-16T02:52:00.485Z" itemprop="datePublished">2019-04-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h4><h5 id="切片的基本原理"><a href="#切片的基本原理" class="headerlink" title="切片的基本原理"></a>切片的基本原理</h5><p>切片可以理解为动态数组的实现，切片是一个对象，有自己的方法和属性，切片是一个引用类型。</p>
-<p>切片需要3个字段，这3个字段分别是：<br>指向底层数组的指针<br>切片访问的元素的个数（即长度）length<br>切片允许增长到的元素个数（即容量）cap</p>
-<h5 id="切片的声明和赋值"><a href="#切片的声明和赋值" class="headerlink" title="切片的声明和赋值"></a>切片的声明和赋值</h5><h6 id="使用内置的make-函数"><a href="#使用内置的make-函数" class="headerlink" title="使用内置的make()函数"></a>使用内置的make()函数</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个字符串切片</span></span><br><span class="line"><span class="comment">// 其长度和容量都是5个元素</span></span><br><span class="line">slice := <span class="built_in">make</span>([]<span class="keyword">string</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个整型切片</span></span><br><span class="line"><span class="comment">// 其长度为3个元素，容量为5个元素</span></span><br><span class="line">slice := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">3</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-<h6 id="切片字面量"><a href="#切片字面量" class="headerlink" title="切片字面量"></a>切片字面量</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建字符串切片</span></span><br><span class="line"><span class="comment">// 其长度和容量都是5个元素</span></span><br><span class="line">slice := []<span class="keyword">string</span>&#123;<span class="string">"Red"</span>, <span class="string">"Blue"</span>, <span class="string">"Green"</span>, <span class="string">"Yellow"</span>, <span class="string">"Pink"</span>&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个整型切片</span></span><br><span class="line"><span class="comment">// 其长度和容量都是3个元素</span></span><br><span class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用空字符串初始化第100 个元素</span></span><br><span class="line"><span class="comment">// 其长度和容量都是100个元素</span></span><br><span class="line">slice := []<span class="keyword">string</span>&#123;<span class="number">99</span>: <span class="string">""</span>&#125;</span><br></pre></td></tr></table></figure>
-<h6 id="和数组的区别"><a href="#和数组的区别" class="headerlink" title="和数组的区别"></a>和数组的区别</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">slice := []<span class="keyword">string</span>&#123;<span class="number">99</span>: <span class="string">""</span>&#125;</span><br><span class="line"><span class="comment">//[]里没有数字是切片</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">array := [...]<span class="keyword">string</span>&#123;<span class="number">99</span>: <span class="string">""</span>&#125;</span><br><span class="line"><span class="comment">//[]里有数字或者...是数组</span></span><br></pre></td></tr></table></figure>
-<h5 id="nil切片"><a href="#nil切片" class="headerlink" title="nil切片"></a>nil切片</h5><p>声明一个nil切片<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建nil整型切片</span></span><br><span class="line"><span class="keyword">var</span> slice []<span class="keyword">int</span></span><br></pre></td></tr></table></figure></p>
-<p><img src="./nil切片.jpg" alt="nil切片"></p>
-<p>nil切片的作用：<br>在需要描述一个不存在的切片时，nil切片会很好用。例如，函数要求返回一个切片但是发生异常的时候</p>
-<h5 id="空切片"><a href="#空切片" class="headerlink" title="空切片"></a>空切片</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用make创建空的整型切片</span></span><br><span class="line">slice := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">0</span>)</span><br><span class="line"><span class="comment">// 使用切片字面量创建空的整型切片</span></span><br><span class="line">slice := []<span class="keyword">int</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="./空切片.jpg" alt="空切片"></p>
-<p>空切片的作用：<br>想表示空集合时空切片很有用，例如，数据库查询返回0个查询结果时</p>
-<h5 id="使用切片"><a href="#使用切片" class="headerlink" title="使用切片"></a>使用切片</h5><h6 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h6><p>切片的赋值：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">// 创建一个整型切片</span></span><br><span class="line">	<span class="comment">// 其容量和长度都是5个元素</span></span><br><span class="line">	slice := []<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;</span><br><span class="line">	<span class="comment">// 改变索引为1的元素的值</span></span><br><span class="line">	slice[<span class="number">1</span>] = <span class="number">25</span></span><br><span class="line">	fmt.Println(slice)</span><br><span class="line">	<span class="comment">// [10 25 30 40 50]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>从赋值可以看出，实际上切片就是动态数组</p>
-<h6 id="通过现有切片创建新切片"><a href="#通过现有切片创建新切片" class="headerlink" title="通过现有切片创建新切片"></a>通过现有切片创建新切片</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个整型切片</span></span><br><span class="line"><span class="comment">// 其容量和长度都是5个元素</span></span><br><span class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;</span><br><span class="line"><span class="comment">// 创建一个新切片</span></span><br><span class="line"><span class="comment">// 其长度为2个元素，容量为4个元素</span></span><br><span class="line">newSlice := slice[<span class="number">1</span>:<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">fmt.Println(slice)</span><br><span class="line"><span class="comment">// [10 20 30 40 50]</span></span><br><span class="line">fmt.Println(newSlice)</span><br><span class="line"><span class="comment">// [20 30]</span></span><br></pre></td></tr></table></figure>
-<p>slice的长度为5<br>这里<code>slice[1:3]</code>生成的newSlice<br>长度：<code>3-1=2</code><br>容量：<code>5-1=4</code></p>
-<p>即slice的长度为k<br>这里<code>slice[i:j]</code>生成的newSlice<br>长度：<code>k-i</code><br>容量：<code>k-j</code></p>
-<p>注意：现在两个切片共享同一个底层数组。如果一个切片修改了该底层数组的共享部分，另一个切片也能感知到</p>
-<p>也就是说<code>slice[i:j]</code>切片是浅复制</p>
-<p><img src="./slice切片.jpg" alt="slice切片"></p>
-<h6 id="append方法添加新元素"><a href="#append方法添加新元素" class="headerlink" title="append方法添加新元素"></a>append方法添加新元素</h6><p>案例一：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个整型切片</span></span><br><span class="line"><span class="comment">// 其长度和容量都是4个元素</span></span><br><span class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>&#125;</span><br><span class="line"><span class="comment">// 向切片追加一个新元素</span></span><br><span class="line"><span class="comment">// 将新元素赋值为50</span></span><br><span class="line">newSlice := <span class="built_in">append</span>(slice, <span class="number">50</span>)</span><br><span class="line"><span class="comment">// newSlice的length为5，cap为8</span></span><br><span class="line">fmt.Println(newSlice)</span><br><span class="line"><span class="comment">// [10 20 30 40 50]</span></span><br></pre></td></tr></table></figure></p>
-<p>这说明内置的append方法实现了动态数组的容量变化，切片长度超出容量上届时自动扩容</p>
-<p><img src="./append案例一.jpg" alt="append案例一"></p>
-<p>案例二：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个整型切片</span></span><br><span class="line"><span class="comment">// 其长度和容量都是5个元素</span></span><br><span class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;</span><br><span class="line"><span class="comment">// 创建一个新切片</span></span><br><span class="line"><span class="comment">// 其长度为2个元素，容量为4个元素</span></span><br><span class="line">newSlice := slice[<span class="number">1</span>:<span class="number">3</span>]</span><br><span class="line"><span class="comment">// 使用原有的容量来分配一个新元素</span></span><br><span class="line"><span class="comment">// 将新元素赋值为60</span></span><br><span class="line">newSlice = <span class="built_in">append</span>(newSlice, <span class="number">60</span>)</span><br><span class="line">fmt.Println(slice)</span><br><span class="line"><span class="comment">// [10 20 30 60 50]</span></span><br><span class="line">fmt.Println(newSlice)</span><br><span class="line"><span class="comment">// [20 30 60]</span></span><br></pre></td></tr></table></figure></p>
-<p>案例二中append使得newSlice增加了长度，但是应该注意slice[i:j]是浅复制，而且实际上是一个指向同一个数组的指针，因此直接将原切片的值修改成为60</p>
-<p>示意图：<br><img src="./append案例二.jpg" alt></p>
-<h5 id="第三个索引"><a href="#第三个索引" class="headerlink" title="第三个索引"></a>第三个索引</h5><p>第三个索引可以确定容量<br>对于<code>slice[i:j:k]</code> 或<code>[2:3:4]</code><br>长度: <code>j – i</code>或<code>3 - 2 = 1</code><br>容量: <code>k – i</code>或<code>4 - 2 = 2</code></p>
-<p>设置第三个索引和第二个索引一样，可以使得新切片的长度和容量相等。</p>
-<p>这样的好处是什么呢？</p>
-<p>当切片的长度和容量相等时，再调用append就会扩容。但是扩容后的新切片就不会和原数组共用一个底层数组了。<br>这时候修改新切片的值就不会干扰原切片的值。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建字符串切片</span></span><br><span class="line"><span class="comment">// 其长度和容量都是5个元素</span></span><br><span class="line">source := []<span class="keyword">string</span>&#123;<span class="string">"Apple"</span>, <span class="string">"Orange"</span>, <span class="string">"Plum"</span>, <span class="string">"Banana"</span>, <span class="string">"Grape"</span>&#125;</span><br><span class="line"><span class="comment">// 对第三个元素做切片，并限制容量</span></span><br><span class="line"><span class="comment">// 其长度和容量都是1个元素</span></span><br><span class="line">slice := source[<span class="number">2</span>:<span class="number">3</span>:<span class="number">3</span>]</span><br><span class="line"><span class="comment">// 向slice追加新字符串</span></span><br><span class="line">slice = <span class="built_in">append</span>(slice, <span class="string">"Kiwi"</span>)</span><br><span class="line">slice[<span class="number">0</span>]=<span class="string">"newItem"</span></span><br><span class="line">fmt.Println(source)</span><br><span class="line"><span class="comment">// [Apple Orange Plum Banana Grape]</span></span><br><span class="line">fmt.Println(slice)</span><br><span class="line"><span class="comment">// [newItem Kiwi]</span></span><br></pre></td></tr></table></figure></p>
-<p>示意图：<br><img src="./append产生新底层数组.jpg" alt></p>
-<h5 id="append合并多个切片"><a href="#append合并多个切片" class="headerlink" title="append合并多个切片"></a>append合并多个切片</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建两个切片，并分别用两个整数进行初始化</span></span><br><span class="line">s1 := []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>&#125;</span><br><span class="line">s2 := []<span class="keyword">int</span>&#123;<span class="number">3</span>, <span class="number">4</span>&#125;</span><br><span class="line"><span class="comment">// 将两个切片追加在一起，并显示结果</span></span><br><span class="line">fmt.Println(<span class="built_in">append</span>(s1,s2...))</span><br><span class="line"><span class="comment">// append连接2个切片时只能一次连接2个</span></span><br></pre></td></tr></table></figure>
-<h5 id="遍历切片"><a href="#遍历切片" class="headerlink" title="遍历切片"></a>遍历切片</h5><h6 id="使用range遍历"><a href="#使用range遍历" class="headerlink" title="使用range遍历"></a>使用range遍历</h6><p>可以看出遍历切片方式与数组相同<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个整型切片</span></span><br><span class="line"><span class="comment">// 其长度和容量都是4个元素</span></span><br><span class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>&#125;</span><br><span class="line"><span class="comment">// 迭代每一个元素，并显示其值</span></span><br><span class="line"><span class="keyword">for</span> index, value := <span class="keyword">range</span> slice &#123;</span><br><span class="line">　fmt.Printf(<span class="string">"Index: %d　Value: %d\n"</span>, index, value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h6 id="for遍历-len-cap"><a href="#for遍历-len-cap" class="headerlink" title="for遍历,len(),cap()"></a>for遍历,len(),cap()</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>&#125;</span><br><span class="line"><span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;<span class="built_in">len</span>(slice);i++ &#123;</span><br><span class="line">	fmt.Println(<span class="string">"value:"</span>,slice[i])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>len()返回切片长度 length<br>cap()返回切片容量 cap</p>
-<h5 id="函数中传入切片"><a href="#函数中传入切片" class="headerlink" title="函数中传入切片"></a>函数中传入切片</h5><p>对比之前的数组，切片的优势不言而喻。</p>
-<p>因为切片本身就是引用类型，在64位架构的机器上，一个切片需要24字节的内存：指针字段需要8 字节，长度和容量字段分别需要8字节。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/16/Go切片/Go切片/" data-id="cjuj6ztsq000368toa0t8qsxf" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Go接口与多态/Go接口与多态" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/16/Go接口与多态/Go接口与多态/" class="article-date">
-  <time datetime="2019-04-16T02:52:00.375Z" itemprop="datePublished">2019-04-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h4><h5 id="多态的意义"><a href="#多态的意义" class="headerlink" title="多态的意义"></a>多态的意义</h5><p>重载式多态，也叫编译时多态。也就是说这种多态再编译时已经确定好了。重载大家都知道，方法名相同而参数列表不同的一组方法就是重载。在调用这种重载的方法时，通过传入不同的参数最后得到不同的结果。</p>
-<p>但是这里是有歧义的，有的人觉得不应该把重载也算作多态。因为很多人对多态的理解是：程序中定义的引用变量所指向的具体类型和通过该引用变量发出的方法调用在编程时并不确定，而是在程序运行期间才确定，这种情况叫做多态。 这个定义中描述的就是我们的第二种多态—重写式多态。并且，重载式多态并不是面向对象编程特有的，而多态却是面向对象三大特性之一</p>
-<p>我觉得大家也没有必要在定义上去深究这些，我的理解是：同一个行为具有多个不同表现形式或形态的能力就是多态，所以我认为重载也是一种多态，如果你不同意这种观点，我也接受。</p>
-<p>重写式多态，也叫运行时多态。这种多态通过动态绑定（dynamic binding）技术来实现，是指在执行期间判断所引用对象的实际类型，根据其实际的类型调用其相应的方法。也就是说，只有程序运行起来，你才知道调用的是哪个子类的方法。 这种多态通过函数的重写以及向上转型来实现，我们上面代码中的例子就是一个完整的重写式多态。我们接下来讲的所有多态都是重写式多态，因为它才是面向对象编程中真正的多态。</p>
-<h5 id="接口实现多态的例子"><a href="#接口实现多态的例子" class="headerlink" title="接口实现多态的例子"></a>接口实现多态的例子</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> person <span class="keyword">interface</span> &#123;</span><br><span class="line">    sayInfo()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> user <span class="keyword">struct</span> &#123;</span><br><span class="line">    name  <span class="keyword">string</span></span><br><span class="line">    email <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> admin <span class="keyword">struct</span> &#123;</span><br><span class="line">    name  <span class="keyword">string</span></span><br><span class="line">    email <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *user)</span> <span class="title">sayInfo</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Printf(<span class="string">"Sending user email to %s&lt;%s&gt;\n"</span>,u.name,u.email)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a *admin)</span> <span class="title">sayInfo</span><span class="params">()</span></span> &#123;</span><br><span class="line">fmt.Printf(<span class="string">"Sending admin email to %s&lt;%s&gt;\n"</span>,a.name,a.email)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    bill := user&#123;<span class="string">"Bill"</span>, <span class="string">"bill@email.com"</span>&#125;</span><br><span class="line">    sendInfo(&amp;bill)</span><br><span class="line"></span><br><span class="line">    lisa := admin&#123;<span class="string">"Lisa"</span>, <span class="string">"lisa@email.com"</span>&#125;</span><br><span class="line">    sendInfo(&amp;lisa)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sendInfo</span><span class="params">(p person)</span></span> &#123;</span><br><span class="line">    p.sayInfo()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以看到admin和user有着相同的方法<code>sayInfo</code>，可以通过接口封装在同一个函数中。这样只有在实际调用时，调用一个函数才会知道会执行哪一个方法。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/16/Go接口与多态/Go接口与多态/" data-id="cjuj6ztsw000668top1dwms8v" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Go接口/Go接口" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/16/Go接口/Go接口/" class="article-date">
-  <time datetime="2019-04-16T02:52:00.056Z" itemprop="datePublished">2019-04-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="Go接口"><a href="#Go接口" class="headerlink" title="Go接口"></a>Go接口</h4><h5 id="接口的含义"><a href="#接口的含义" class="headerlink" title="接口的含义"></a>接口的含义</h5><p>从面向对象的语言的角度来说，就是约束类(对象)的属性和方法。</p>
-<p>比如java或者typescript</p>
-<h5 id="go中的接口的使用和方法集"><a href="#go中的接口的使用和方法集" class="headerlink" title="go中的接口的使用和方法集"></a>go中的接口的使用和方法集</h5><p>看看接口的使用方法</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> printInfor <span class="keyword">interface</span> &#123;</span><br><span class="line">	printInfo()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> user <span class="keyword">struct</span> &#123;</span><br><span class="line">    name <span class="keyword">string</span></span><br><span class="line">    email <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *user)</span> <span class="title">printInfo</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">"name:"</span>, u.name, <span class="string">" email:"</span>,u.email)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    u := user&#123;<span class="string">"Bill"</span>, <span class="string">"bill@email.com"</span>&#125;</span><br><span class="line">    sendInfo(&amp;u)<span class="comment">//这里只能传递指针！！</span></span><br><span class="line">    <span class="comment">//写成sendInfo(u)行不行？</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sendInfo</span><span class="params">(p printInfor)</span></span> &#123;</span><br><span class="line">    p.printInfo()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Q:这里写成sendInfo(u)行不行?<br>A:不行</p>
-<p>Q:为什么?<br>A:和go的方法集有关</p>
-<h5 id="go的方法集"><a href="#go的方法集" class="headerlink" title="go的方法集"></a>go的方法集</h5><p>示意图：<br><img src="./go方法集.jpg" alt><br>指针接收者来实现一个接口，那么<strong>只有指向那个类型的指针才能够实现对应的接口</strong></p>
-<p>如果使用值接收者来实现一个接口，那么那个类型的值和指针都能够实现对应的接口</p>
-<p>回到这段代码上，因为接口包含一个<code>printInfo</code>方法。而<code>printInfo</code>方法接受指针，那么<strong>只有指向那个类型的指针才能够实现对应的接口</strong>，即代码中的<code>&amp;u</code></p>
-<h5 id="更加深层次的考虑为什么方法集是这样子的设计的？"><a href="#更加深层次的考虑为什么方法集是这样子的设计的？" class="headerlink" title="更加深层次的考虑为什么方法集是这样子的设计的？"></a>更加深层次的考虑为什么方法集是这样子的设计的？</h5><p>因为<strong>编译器并不是总能自动获得一个值的地址</strong></p>
-<p>回到刚才那段程序如果写成<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sendInfo(u)</span><br></pre></td></tr></table></figure></p>
-<p>而在<code>sendInfo</code>中使用<code>p.printInfo()</code>时其实是在调用<code>(*p).printInfo()</code>。根据<strong>编译器并不是总能自动获得一个值的地址</strong>，<code>p</code>可能取不到地址，因此会出现错误。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/16/Go接口/Go接口/" data-id="cjuj6ztsu000568tow2vg2pie" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Go函数参数传递和引用类型/test2" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/16/Go函数参数传递和引用类型/test2/" class="article-date">
-  <time datetime="2019-04-16T02:52:00.006Z" itemprop="datePublished">2019-04-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        let obj={
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">longlongyu</div><div class="profile-signature">for me</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Longlongyu" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">Mr.Long's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1>Mr.Long's Blog</h1><h5>Welcome to my Blog!</h5><div class="intro-social"><a class="fa fa-github" href="//github.com/" target="_blank" title="github"></a><a class="fa fa-weibo" href="//www.weibo.com" target="_blank" title="weibo"></a><a class="fa fa-facebook" href="//www.facebook.com" target="_blank" title="facebook"></a><a class="fa fa-twitter" href="//twitter.com" target="_blank" title="twitter"></a><a class="fa fa-rss" href="/atom.xml" target="_blank" title="rss"></a></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><section id="recent-posts"><div class="recent-post-item"><div class="post-title"><a href="/2019/04/16/Go语言初探-包管理/Go语言初探-包管理/">no_title</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-04-16T02:52:00.776Z">2019-04-16</time></div><div class="recent-post-content">golang语言初探-包管理
+Goroot path：C:\Go\bin
+Gopath :C:\Users\zyf\go
+go get命令的包全部都保存在Gopath中
+12345678package mainimport (    "hello2")func main()&#123;    //注意这里变量名是hello    hello.Say()&#125;
+实际上导入的是目录C:\Users\zyf\go\src下的hello2文件夹
+导入的包的默认变量名是什么呢？
+C:\Users\zyf\go\src\hello2里只用一个文件main.go12345package helloim ...</div><div class="read-more"><a class="more" href="/2019/04/16/Go语言初探-包管理/Go语言初探-包管理/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/04/16/Go镶嵌类型与组合/Go镶嵌类型/">no_title</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-04-16T02:52:00.747Z">2019-04-16</time></div><div class="recent-post-content">Go镶嵌类型Go镶嵌1234567891011121314151617181920212223242526272829303132333435363738package mainimport (    "fmt")type user struct &#123;    name  string    email string&#125;func (u *user) notify() &#123;    fmt.Printf("Sending user email to %s&lt;%s&gt;\n",    u.name,    u.email)&#125;type admin struct & ...</div><div class="read-more"><a class="more" href="/2019/04/16/Go镶嵌类型与组合/Go镶嵌类型/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/04/16/Go数组/Go数组/">no_title</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-04-16T02:52:00.687Z">2019-04-16</time></div><div class="recent-post-content">数组数组是一种非常有用的数据结构，因为其占用的内存是连续分配的。由于内存连续，CPU能把正在使用的数据缓存更久的时间。而且内存连续很容易计算索引，可以快速迭代数组里的所有元素。数组的类型信息可以提供每次访问一个元素时需要在内存中移动的距离。既然数组的每个元素类型相同，又是连续分配，就可以以固定速度索引数组中的任意数据，速度非常快。
+注意：在 Go 中数组是值类型而不是引用类型。这意味着当数组变量被赋值时，将会获得原数组的拷贝。新数组中元素的改变不会影响原数组中元素的值。
+声明和赋值方式声明1var array[5] int
+使用具体值初始化1array :=[5] int &#123;&#12 ...</div><div class="read-more"><a class="more" href="/2019/04/16/Go数组/Go数组/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/04/16/Go切片/Go切片/">no_title</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-04-16T02:52:00.485Z">2019-04-16</time></div><div class="recent-post-content">切片切片的基本原理切片可以理解为动态数组的实现，切片是一个对象，有自己的方法和属性，切片是一个引用类型。
+切片需要3个字段，这3个字段分别是：指向底层数组的指针切片访问的元素的个数（即长度）length切片允许增长到的元素个数（即容量）cap
+切片的声明和赋值使用内置的make()函数123// 创建一个字符串切片// 其长度和容量都是5个元素slice := make([]string, 5)
+123// 创建一个整型切片// 其长度为3个元素，容量为5个元素slice := make([]int, 3, 5)
+切片字面量123// 创建字符串切片// 其长度和容量都是5个元素slice : ...</div><div class="read-more"><a class="more" href="/2019/04/16/Go切片/Go切片/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/04/16/Go接口与多态/Go接口与多态/">no_title</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-04-16T02:52:00.375Z">2019-04-16</time></div><div class="recent-post-content">多态多态的意义重载式多态，也叫编译时多态。也就是说这种多态再编译时已经确定好了。重载大家都知道，方法名相同而参数列表不同的一组方法就是重载。在调用这种重载的方法时，通过传入不同的参数最后得到不同的结果。
+但是这里是有歧义的，有的人觉得不应该把重载也算作多态。因为很多人对多态的理解是：程序中定义的引用变量所指向的具体类型和通过该引用变量发出的方法调用在编程时并不确定，而是在程序运行期间才确定，这种情况叫做多态。 这个定义中描述的就是我们的第二种多态—重写式多态。并且，重载式多态并不是面向对象编程特有的，而多态却是面向对象三大特性之一
+我觉得大家也没有必要在定义上去深究这些，我的理解是：同一个行为 ...</div><div class="read-more"><a class="more" href="/2019/04/16/Go接口与多态/Go接口与多态/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/04/16/Go接口/Go接口/">no_title</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-04-16T02:52:00.056Z">2019-04-16</time></div><div class="recent-post-content">Go接口接口的含义从面向对象的语言的角度来说，就是约束类(对象)的属性和方法。
+比如java或者typescript
+go中的接口的使用和方法集看看接口的使用方法
+1234567891011121314151617181920212223242526272829package mainimport (    "fmt")type printInfor interface &#123;	printInfo()&#125;type user struct &#123;    name string    email string&#125;func (u *user) printInfo() &# ...</div><div class="read-more"><a class="more" href="/2019/04/16/Go接口/Go接口/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/04/16/Go函数参数传递和引用类型/test2/">no_title</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-04-16T02:52:00.006Z">2019-04-16</time></div><div class="recent-post-content">let obj={
     name:"old name"
 }
 
@@ -330,33 +127,7 @@ let changename= function(object){
 
 console.log(obj) //{ name: 'old name' }
 changename(obj)
-console.log(obj) //{ name: 'new name' }
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/16/Go函数参数传递和引用类型/test2/" data-id="cjuj6ztsn000168toz48xb0l7" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Go函数参数传递和引用类型/test" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/16/Go函数参数传递和引用类型/test/" class="article-date">
-  <time datetime="2019-04-16T02:52:00.006Z" itemprop="datePublished">2019-04-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        let obj={
+console.log(obj) //{ name: 'new name' }</div><div class="read-more"><a class="more" href="/2019/04/16/Go函数参数传递和引用类型/test2/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/04/16/Go函数参数传递和引用类型/test/">no_title</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-04-16T02:52:00.006Z">2019-04-16</time></div><div class="recent-post-content">let obj={
     name:"old name"
 }
 
@@ -366,192 +137,12 @@ let changename= function(object){
 
 console.log(obj) //{ name: 'old name' }
 changename(obj)
-console.log(obj) //{ name: 'new name' }
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/16/Go函数参数传递和引用类型/test/" data-id="cjuj6ztsp000268tohamcirxm" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Go函数参数传递和引用类型/Go函数参数传递和引用类型" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/16/Go函数参数传递和引用类型/Go函数参数传递和引用类型/" class="article-date">
-  <time datetime="2019-04-16T02:51:59.976Z" itemprop="datePublished">2019-04-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="Go函数参数传递和引用类型"><a href="#Go函数参数传递和引用类型" class="headerlink" title="Go函数参数传递和引用类型"></a>Go函数参数传递和引用类型</h4><h5 id="Go语言的类型"><a href="#Go语言的类型" class="headerlink" title="Go语言的类型"></a>Go语言的类型</h5><p>目前学到的</p>
-<p>基本类型：<br>string int bool </p>
-<p>引用类型：<br>切片,映射(map),接口(interface),函数(func)</p>
-<h5 id="函数参数的传递"><a href="#函数参数的传递" class="headerlink" title="函数参数的传递"></a>函数参数的传递</h5><p>go中函数参数分两种，值传递和指针传递<br>值传递：就是传递的变量的拷贝<br>指针传递：就是传递的变量的指针</p>
-<p>已知：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> person <span class="keyword">struct</span>&#123;</span><br><span class="line">    name <span class="keyword">string</span></span><br><span class="line">    age <span class="keyword">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>值传递：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span><span class="params">(p person)</span></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>指针传递：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span><span class="params">(p *person)</span></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h6 id="struct作为函数参数的值传递"><a href="#struct作为函数参数的值传递" class="headerlink" title="struct作为函数参数的值传递"></a>struct作为函数参数的值传递</h6><p>看一个关于函数参数值传递的例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> person <span class="keyword">struct</span>&#123;</span><br><span class="line">    name <span class="keyword">string</span></span><br><span class="line">    age <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    jim := person&#123;<span class="string">"jim"</span>,<span class="number">10</span>&#125; <span class="comment">//变量jim为类型person</span></span><br><span class="line">    fmt.Println(jim) <span class="comment">//&#123;jim 10&#125;</span></span><br><span class="line">    changename(jim)  <span class="comment">//传进函数的是值的拷贝</span></span><br><span class="line">    fmt.Println(jim) <span class="comment">//&#123;jim 10&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">changename</span><span class="params">(p person)</span></span>&#123;</span><br><span class="line">    p.name = <span class="string">"another"</span> <span class="comment">//这里是对拷贝赋值，没有效果</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里的changename接受的参数是值传递，就是说形参变量<code>p</code>是变量<code>jim</code>的副本。</p>
-<h6 id="struct作为函数参数的指针传递"><a href="#struct作为函数参数的指针传递" class="headerlink" title="struct作为函数参数的指针传递"></a>struct作为函数参数的指针传递</h6><p>我们换一个写法试试，改用指针传递，就能修改变量：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> person <span class="keyword">struct</span>&#123;</span><br><span class="line">    name <span class="keyword">string</span></span><br><span class="line">    age <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    jim := person&#123;<span class="string">"jim"</span>,<span class="number">10</span>&#125;</span><br><span class="line">    fmt.Println(jim) <span class="comment">//&#123;jim 10&#125;</span></span><br><span class="line">    changename(&amp;jim)  <span class="comment">//传进函数的是变量jim的指针</span></span><br><span class="line">    fmt.Println(jim) <span class="comment">//&#123;another 10&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">changename</span><span class="params">(p *person)</span></span>&#123;</span><br><span class="line">    p.name = <span class="string">"another"</span> <span class="comment">//这里是指针指向的变量赋值，所以有效果</span></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    细心的同学可能发现p是一个指针变量，为什么能直接加.name?</span></span><br><span class="line"><span class="comment">    此处是go语言编译器自动转换了写法</span></span><br><span class="line"><span class="comment">    准确来写应该是：</span></span><br><span class="line"><span class="comment">    (*p).name = "another"</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>写到这里大家可能会觉得struct应该是一个基本类型，可能有的同学不太明白，函数参数的值传递，指针传递和变量的基本类型，引用类型有什么关系。</p>
-<p>我再举一个例子，依然是值传递和指针传递，但是这次参数选一个引用类型：切片</p>
-<h6 id="切片作为函数参数的值传递"><a href="#切片作为函数参数的值传递" class="headerlink" title="切片作为函数参数的值传递"></a>切片作为函数参数的值传递</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    persons := []<span class="keyword">string</span>&#123;<span class="string">"jim"</span>,<span class="string">"tom"</span>,<span class="string">"panda"</span>&#125;</span><br><span class="line">    fmt.Println(persons) <span class="comment">//[jim tom panda]</span></span><br><span class="line">    changeperson(persons)  <span class="comment">//传进函数的是切片的拷贝</span></span><br><span class="line">    fmt.Println(persons) <span class="comment">//[another tom panda]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">changeperson</span><span class="params">(p []<span class="keyword">string</span>)</span></span>&#123;</span><br><span class="line">    p[<span class="number">0</span>] = <span class="string">"another"</span> <span class="comment">//这里是对拷贝赋值，但仍有效果</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>为什么切片作为值的拷贝传递，修改拷贝的值仍然有效果？<br>因为之前讲过，切片是引用类型，切片本身可以理解为包含3个字段的struct：指向底层数组的指针，长度，容量。因此即使在函数<code>changeperson</code>中变量<code>p</code>是值的拷贝，切片作为引用类型，变量<code>p</code>仍然包含了指向底层数组的指针,因此能够修改底层数组成功。</p>
-<h6 id="js中一个引用类型的例子"><a href="#js中一个引用类型的例子" class="headerlink" title="js中一个引用类型的例子"></a>js中一个引用类型的例子</h6><p>我再举一个javascript的例子进行比较一下(不熟悉js的同学可忽略)</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj=&#123;</span><br><span class="line">    name:<span class="string">"old name"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> changename= <span class="function"><span class="keyword">function</span>(<span class="params">object</span>)</span>&#123;</span><br><span class="line">    object.name=<span class="string">"new name"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj) <span class="comment">//&#123; name: 'old name' &#125;</span></span><br><span class="line">changename(obj)</span><br><span class="line"><span class="built_in">console</span>.log(obj) <span class="comment">//&#123; name: 'new name' &#125;</span></span><br></pre></td></tr></table></figure>
-<p>js中<code>Object</code>是引用类型，这里obj传递的实际上仍然是值的复制(js中没有显式的指针的概念)，但是在这个副本中仍然包含了引用类型这个对象在内存中的指针，因此可以修改内存中的值。</p>
-<p>所以在js中这么写是无效的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj=&#123;</span><br><span class="line">    name:<span class="string">"old name"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> changename= <span class="function"><span class="keyword">function</span>(<span class="params">object</span>)</span>&#123;</span><br><span class="line">    object.name=<span class="string">"new name"</span></span><br><span class="line">    object=<span class="literal">null</span> <span class="comment">//是没有用的，object只是一个值的复制</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj) <span class="comment">//&#123; name: 'old name' &#125;</span></span><br><span class="line">changename(obj)</span><br><span class="line"><span class="built_in">console</span>.log(obj) <span class="comment">//&#123; name: 'new name' &#125;</span></span><br></pre></td></tr></table></figure></p>
-<h6 id="切片作为指针传递"><a href="#切片作为指针传递" class="headerlink" title="切片作为指针传递"></a>切片作为指针传递</h6><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    persons := []<span class="keyword">string</span>&#123;<span class="string">"jim"</span>,<span class="string">"tom"</span>,<span class="string">"panda"</span>&#125;</span><br><span class="line">    fmt.Println(persons) <span class="comment">//[jim tom panda]</span></span><br><span class="line">    changeperson(&amp;persons)  <span class="comment">//传进函数的是变量的指针</span></span><br><span class="line">    fmt.Println(persons) <span class="comment">//[another tom panda]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">changeperson</span><span class="params">(p *[]<span class="keyword">string</span>)</span></span>&#123;</span><br><span class="line">    (*p)[<span class="number">0</span>] = <span class="string">"another"</span> <span class="comment">//这里直接取到指向指针地址对应的变量，并赋值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可见对于引用变量，起码对于切片而言，传递值和传递指针，变化并不是那么明显。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/16/Go函数参数传递和引用类型/Go函数参数传递和引用类型/" data-id="cjuj6ztsg000068tokum2ko0y" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Go方法/Go方法" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/16/Go方法/Go方法/" class="article-date">
-  <time datetime="2019-04-16T02:51:59.906Z" itemprop="datePublished">2019-04-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="Go方法"><a href="#Go方法" class="headerlink" title="Go方法"></a>Go方法</h4><h5 id="Go语言中struct的方法"><a href="#Go语言中struct的方法" class="headerlink" title="Go语言中struct的方法"></a>Go语言中struct的方法</h5><p>方法就是函数，对象调用的函数就是方法，同样包括值传递和指针传递</p>
-<h5 id="Go方法接收值"><a href="#Go方法接收值" class="headerlink" title="Go方法接收值"></a>Go方法接收值</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> user <span class="keyword">struct</span> &#123;</span><br><span class="line">	name  <span class="keyword">string</span></span><br><span class="line">	email <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//传递值，changeEmail方法没有用</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u user)</span> <span class="title">print</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(u.email)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u user)</span> <span class="title">changeEmail</span><span class="params">(email <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	u.email = email</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	bill := user&#123;<span class="string">"Bill"</span>, <span class="string">"bill@email.com"</span>&#125;</span><br><span class="line">	bill.<span class="built_in">print</span>()</span><br><span class="line">	<span class="comment">//bill@email.com</span></span><br><span class="line">	bill.changeEmail(<span class="string">"new address"</span>)</span><br><span class="line">	bill.<span class="built_in">print</span>()</span><br><span class="line">	<span class="comment">//bill@email.com</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>两个函数都是传递user的值的副本，因此修改没用。</p>
-<h5 id="Go方法接收指针"><a href="#Go方法接收指针" class="headerlink" title="Go方法接收指针"></a>Go方法接收指针</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> user <span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">    email <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数接收user类型的指针</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *user)</span> <span class="title">printPointer</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(u.email)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *user)</span> <span class="title">changeEmailPointer</span><span class="params">(email <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	u.email = email</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	bill := user&#123;<span class="string">"Bill"</span>, <span class="string">"bill@email.com"</span>&#125;</span><br><span class="line">	bill.printPointer() </span><br><span class="line">	<span class="comment">//bill@email.com</span></span><br><span class="line">	bill.changeEmailPointer(<span class="string">"new address"</span>) </span><br><span class="line">	bill.printPointer()</span><br><span class="line">	<span class="comment">//new address</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意这里传递的就是变量<code>bill</code>的指针了。<br>细心的同学可能发现<code>bill.printPointer()</code>这个调用有问题。因为<code>printPointer</code>接收的是指针。<br>其实这样写更准确：<code>(&amp;bill).printPointer()</code>这里是go编译器帮我们内部处理的，这样能更加方便我们书写方法。</p>
-<h5 id="amp-user的写法"><a href="#amp-user的写法" class="headerlink" title="&amp;user的写法"></a>&amp;user的写法</h5><p>大家可能猜到，同理还有另外一种写法,上述的2份代码只改动一处：<br><code>bill := &amp;user{&quot;Bill&quot;, &quot;bill@email.com&quot;}</code></p>
-<p>上述的2份代码运行的结果都不会发生变化，传入指针或者传入值，都是由函数方法决定的。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/16/Go方法/Go方法/" data-id="cjuj6ztsy000868toipi2k3fp" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-  </nav>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/04/16/Go语言初探-包管理/Go语言初探-包管理/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/16/Go镶嵌类型与组合/Go镶嵌类型/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/16/Go数组/Go数组/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/16/Go切片/Go切片/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/16/Go接口与多态/Go接口与多态/">(no title)</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
-
-  </div>
-</body>
-</html>
+console.log(obj) //{ name: 'new name' }</div><div class="read-more"><a class="more" href="/2019/04/16/Go函数参数传递和引用类型/test/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/04/16/Go函数参数传递和引用类型/Go函数参数传递和引用类型/">no_title</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-04-16T02:51:59.976Z">2019-04-16</time></div><div class="recent-post-content">Go函数参数传递和引用类型Go语言的类型目前学到的
+基本类型：string int bool 
+引用类型：切片,映射(map),接口(interface),函数(func)
+函数参数的传递go中函数参数分两种，值传递和指针传递值传递：就是传递的变量的拷贝指针传递：就是传递的变量的指针
+已知：1234type person struct&#123;    name string    age int&#125;
+值传递：123func(p person)&#123;    ...&#125;
+指针传递：123func(p *person)&#123;    ...&#125;
+struct作为函 ...</div><div class="read-more"><a class="more" href="/2019/04/16/Go函数参数传递和引用类型/Go函数参数传递和引用类型/#more">ReadMore</a></div><hr></div><div class="recent-post-item"><div class="post-title"><a href="/2019/04/16/Go方法/Go方法/">no_title</a></div><div class="post-time"><i class="fa fa-table"></i><time datetime="2019-04-16T02:51:59.906Z">2019-04-16</time></div><div class="recent-post-content">Go方法Go语言中struct的方法方法就是函数，对象调用的函数就是方法，同样包括值传递和指针传递
+Go方法接收值12345678910111213141516171819type user struct &#123;	name  string	email string&#125;//传递值，changeEmail方法没有用func (u user) print() &#123;	fmt.Println(u.email)&#125;func (u user) changeEmail(email string) &#123;	u.email = email&#125;func main() &# ...</div><div class="read-more"><a class="more" href="/2019/04/16/Go方法/Go方法/#more">ReadMore</a></div><hr></div></section><nav class="cxo-page-nav"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">NEXT &#62;</a></nav></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
