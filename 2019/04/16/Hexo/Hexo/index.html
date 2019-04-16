@@ -1,0 +1,146 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><meta name="author" content="John Doe"><meta name="renderer" content="webkit"><meta name="copyright" content="John Doe"><meta name="keywords" content="Hexo"><meta name="description" content="null"><meta name="Cache-Control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Hexo的思考 · yukino's Blog</title><link rel="stylesheet" href="/css/style.css?v=2018.7.9"><link rel="stylesheet" href="/css/animation.css?v=2018.7.9"><link rel="icon" href="/img/assets/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><!-- scripts--><script>(function( w ){
+  "use strict";
+  // rel=preload support test
+  if( !w.loadCSS ){
+    w.loadCSS = function(){};
+  }
+  // define on the loadCSS obj
+  var rp = loadCSS.relpreload = {};
+  // rel=preload feature support test
+  // runs once and returns a function for compat purposes
+  rp.support = (function(){
+    var ret;
+    try {
+      ret = w.document.createElement( "link" ).relList.supports( "preload" );
+    } catch (e) {
+      ret = false;
+    }
+    return function(){
+      return ret;
+    };
+  })();
+
+  // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+  // then change that media back to its intended value on load
+  rp.bindMediaToggle = function( link ){
+    // remember existing media attr for ultimate state, or default to 'all'
+    var finalMedia = link.media || "all";
+
+    function enableStylesheet(){
+      link.media = finalMedia;
+    }
+
+    // bind load handlers to enable media
+    if( link.addEventListener ){
+      link.addEventListener( "load", enableStylesheet );
+    } else if( link.attachEvent ){
+      link.attachEvent( "onload", enableStylesheet );
+    }
+
+    // Set rel and non-applicable media type to start an async request
+    // note: timeout allows this to happen async to let rendering continue in IE
+    setTimeout(function(){
+      link.rel = "stylesheet";
+      link.media = "only x";
+    });
+    // also enable media after 3 seconds,
+    // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+    setTimeout( enableStylesheet, 3000 );
+  };
+
+  // loop through link elements in DOM
+  rp.poly = function(){
+    // double check this to prevent external calls from running
+    if( rp.support() ){
+      return;
+    }
+    var links = w.document.getElementsByTagName( "link" );
+    for( var i = 0; i < links.length; i++ ){
+      var link = links[ i ];
+      // qualify links to those with rel=preload and as=style attrs
+      if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+        // prevent rerunning on link
+        link.setAttribute( "data-loadcss", true );
+        // bind listeners to toggle media back
+        rp.bindMediaToggle( link );
+      }
+    }
+  };
+
+  // if unsupported, run the polyfill
+  if( !rp.support() ){
+    // run once at least
+    rp.poly();
+
+    // rerun poly on an interval until onload
+    var run = w.setInterval( rp.poly, 500 );
+    if( w.addEventListener ){
+      w.addEventListener( "load", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    } else if( w.attachEvent ){
+      w.attachEvent( "onload", function(){
+        rp.poly();
+        w.clearInterval( run );
+      } );
+    }
+  }
+
+
+  // commonjs
+  if( typeof exports !== "undefined" ){
+    exports.loadCSS = loadCSS;
+  }
+  else {
+    w.loadCSS = loadCSS;
+  }
+}( typeof global !== "undefined" ? global : this ) );</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" defer></script><script src="/js/main.js?v=2018.7.9" defer></script><!-- fancybox--><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script><!-- busuanzi--><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><section class="profile-close" id="cxo-profile"><div class="profile-avatar"><i class="fa fa-caret-left"></i><img src="/img/assets/cat.png"></div><!--.profile-saying
+  i.fa.fa-comment
+  .saying--><div class="cxo-profile-inner"><div class="profile-name">yukinotech</div><div class="profile-signature">for me</div><div class="friends"><div>FRIENDS</div><span><a href="//github.com/Longlongyu" target="_black">friendA</a></span><span><a href="//github.com/" target="_black">friendB</a></span><span><a href="//github.com/" target="_black">friendC</a></span></div><div class="read-progress"></div></div></section><header id="cxo-intro" style="height: 70vh;background-image: url(/img/intro/index-bg.png);"><nav id="cxo-intro-nav"><section><div class="intro-nav-title"><a href="/">yukino's Blog</a></div><div class="intro-nav-label-box"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div><i class="fa fa-bars intro-nav-menu"><div class="intro-nav-drop"><a href="/">Home</a><a href="/about/">About</a><a href="/archives/">Archives</a><a href="/tags/">Tags</a></div></i><div class="clear"></div></section></nav><h1 class="post-title">Hexo的思考</h1><div class="post-intros"><div class="post-intro-meta"><span class="post-intro-time"><i class="post-intro-calendar fa fa-calendar"></i><span>2019-04-16</span></span><span class="post-intro-tags"><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="tag1"> tag1</a><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="tag2"> tag2</a><a class="intro-tag fa fa-tag" href="javascript:void(0)" date-tags="tag3"> tag3</a></span></div></div></header><article class="cxo-up" id="cxo-content-outer"><section id="cxo-content-inner"><article class="article-entry" id="post"><h1 id="Hexo的思考"><a href="#Hexo的思考" class="headerlink" title="Hexo的思考"></a>Hexo的思考</h1><h2 id="一个好的blog的标准"><a href="#一个好的blog的标准" class="headerlink" title="一个好的blog的标准"></a>一个好的blog的标准</h2><p>我为啥要做一个Hexo的博客？</p>
+<p>一开始是因为配合github.io搭建可以直接架在公网上，便宜。但是随着我想增加一下Hexo的功能，比如写作时的热更新，主题的更换和魔改，关于Hexo的SEO等等，我发现Hexo并没有我想象中的那么方便。</p>
+<p>我自己也写过一些简单的动态博客，用mongodb+express+react来构建。因为是动态博客，我自己也实现了markdown在线编辑，在线保存，实时预览的效果。这样看来Hexo在不装社区中大大小小的插件的时候，使用起来就不那么令人舒适。</p>
+<p>和Hexo类似的，老牌的博客建站程序WordPress，它又有啥不同？</p>
+<p>我想从博客这个产品的角度，web开发的角度来谈谈这三种blog</p>
+<h2 id="动态博客VS静态博客"><a href="#动态博客VS静态博客" class="headerlink" title="动态博客VS静态博客"></a>动态博客VS静态博客</h2><h3 id="前后端分离"><a href="#前后端分离" class="headerlink" title="前后端分离"></a>前后端分离</h3><p>假设你在运营一个论坛社区网站。一开始，你的用户很少，你不需要考虑很多复杂的问题。你是这么做的：</p>
+<ul>
+<li>选择一个云端服务商，购买一个云端虚拟服务器。</li>
+<li>在虚拟云端服务器上运行一个http服务器，提供路由，并将静态页面挂载到http服务器上。</li>
+<li>在虚拟云端服务器上运行一个数据库，http服务器根据路由，对数据库进行CURD，提供服务。</li>
+</ul>
+<p>里面可能有着更多技术细节，这方面就不多赘述。总之我们可以一台服务器就能解决问题。</p>
+<p>随着业务的发展，用户的增多，你开始有新的需求：希望不同地区，不同地域的人能够尽快的访问到你的页面。</p>
+<p>这时候就有一个新的方案：上述的3个步骤都不会变化，仅仅是将静态页面托管到CDN上。大公司会有自己的CDN集群服务，也可以购买其他公司的CDN集群服务。</p>
+<p>CDN简单来说，就是能让不同地方客户端的ip，能通过CDN服务器，访问到距离客户端最近（路由最近，时间最短）的服务器。</p>
+<p>回到我们blog的话题，你就会发现：</p>
+<ul>
+<li><p>WordPress</p>
+<ul>
+<li>定位CMS，动态站，可在线编辑文章，发布</li>
+<li>数据库+http服务器+页面，部署在一个服务器中</li>
+<li>可拓展性好</li>
+</ul>
+</li>
+<li><p>Hexo</p>
+<ul>
+<li>纯静态页面，无后端，可直接CDN部署</li>
+<li>更没有数据库,.md文件就是文章</li>
+</ul>
+</li>
+<li><p>自己写的博客</p>
+<ul>
+<li>前后端分离，可以把静态页面部署到CDN</li>
+<li>定位CMS，动态站，可在线编辑文章，发布</li>
+<li>可拓展性差</li>
+</ul>
+</li>
+</ul>
+<p>Hexo是轻量级的静态站，和WordPress定位是完全不同的。WordPress是CMS，而且可拓展性很好。</p>
+<p>我想下次谈Hugo时，仔细的比较一下WordPress。</p>
+<h2 id="用户体验"><a href="#用户体验" class="headerlink" title="用户体验"></a>用户体验</h2><p>Hexo这种静态站，别人不能留言，真的成了静态展示站…</p>
+<p>Hexo静态站，就只能本地编辑在deploy了，这个其实不算问题</p>
+<h2 id="何去何从"><a href="#何去何从" class="headerlink" title="何去何从"></a>何去何从</h2><p>静态站可能写的就是一些md了，Hexo(github.io大法好)</p>
+<p>动态站就会考虑使用Hugo了。(也可能真香了)(希望能和WordPress有很多不一样的地方)</p>
+<p>自己写的博客可能才是最舒服的，维护起来自己也好维护。</p>
+<p>社区开源CMS的思路好像只能适用于模板，不能配合react进行前后端分离吗？</p>
+</article><!-- lincense--><div class="license-wrapper"><p> <span>Author:  </span><a href="http://yoursite.com">John Doe</a></p><p> <span>Link:  </span><a href="http://yoursite.com/2019/04/16/Hexo/Hexo/">http://yoursite.com/2019/04/16/Hexo/Hexo/</a></p><p> <span>Copyright:  </span><span>All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/3.0">CC BY-NC-SA 3.0</a> unless stating additionally.</span></p></div><div class="post-paginator"><a class="prevSlogan" href="/2019/04/16/Hexo/Hexo的踩坑记录/" title="Hexo的踩坑记录"><span>< PreviousPost</span><br><span class="prevTitle">Hexo的踩坑记录</span></a><a class="nextSlogan" href="/2019/04/16/Go语言初探-包管理/Go语言初探-包管理/" title="golang语言初探-包管理"><span>NextPost ></span><br><span class="nextTitle">golang语言初探-包管理</span></a><div class="clear"></div></div><div id="comment"></div></section></article><footer id="cxo-footer-outer"><div id="cxo-footer-inner"><p class="footer-container"><span>Site by </span><a href="http://hexo.io"><span>Hexo</span></a><span> | theme </span><a href="https://github.com/Longlongyu/hexo-theme-Cxo"><span>Cxo</span></a></p><i class="fa fa-user"> </i><span id="busuanzi_value_site_uv"></span><span> | </span><i class="fa fa-eye"> </i><span id="busuanzi_value_site_pv"></span></div></footer><!-- catelog--><div class="toc-wrapper" style="top: 70vh;"><div class="toc-catalog"><i class="fa fa-list"> </i><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hexo的思考"><span class="toc-number">1.</span> <span class="toc-text">Hexo的思考</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一个好的blog的标准"><span class="toc-number">1.1.</span> <span class="toc-text">一个好的blog的标准</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动态博客VS静态博客"><span class="toc-number">1.2.</span> <span class="toc-text">动态博客VS静态博客</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#前后端分离"><span class="toc-number">1.2.1.</span> <span class="toc-text">前后端分离</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用户体验"><span class="toc-number">1.3.</span> <span class="toc-text">用户体验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#何去何从"><span class="toc-number">1.4.</span> <span class="toc-text">何去何从</span></a></li></ol></li></ol></div><!-- top--><i class="fa fa-arrow-up close" id="go-up" aria-hidden="true"></i></body></html>
